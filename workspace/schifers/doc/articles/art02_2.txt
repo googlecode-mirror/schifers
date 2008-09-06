@@ -1,0 +1,139 @@
+Simplificando o modelo, vamos imaginar um jogo qualquer bem simples. A minha idéia é criar um jogo que possua uma tela de apresentação, uma tela de menu e uma tela com o jogo em si. Dessa forma, concluímos que o número de estados dessa aplicação é 3 (três). 
+
+As transições entre os estados são acionadas a partir de certos eventos. Vamos tentar relacioná-los aqui: 
+
+Quando o jogo entra na tela de apresentação não é possível que o jogador saia da tela. Ele terá que aguardar 5 segundos para que ocorra a primeira transição de estado. Após os 5 segundos, um evento ocorrerá e a transição para o estado de menu será acionada. Portanto, o primeiro evento de transição é o tempo alcançar 5 segundos após a entrada na máquina. 
+
+Dentro do estado de menu, o jogador pode sair da aplicação pressionando o botão saída ou pode entrar no estado jogo, pressionando o botão jogar. As transições nesse estado ocorrem somente com o pressionamento de dois botões. 
+
+Por último, o jogador estando dentro da tela de jogo, pode sair da mesma pressionando o botão ESC no teclado. Ao sair desse estado, a máquina volta para o estado menu. 
+
+Vamos visualizar em um diagrama de estados da UML o modelo de comportamento desse jogo: 
+
+<center>
+<img src='/schifers/images/art02/fig01.jpg' border='0'>
+</center>
+
+Com esse diagrama, conseguimos ver exatamente o comportamento do jogo mapeado em um modelo de FSM. 
+
+Após ter definido nosso modelo, podemos começar a implementar. 
+
+Como meu objetivo é mostrar a implementação do State Pattern, não vou apresentar uma aplicação gráfica aqui. Tudo será implementado no console do DOS. 
+
+Ao código então... 
+
+Crie um projeto vazio com o nome de MaquinaEstado no Dev-C++. 
+
+Acrescente os seguintes arquivos no projeto: 
+
+- Main.cpp 
+- Global.h 
+- Maquina.cpp 
+- Maquina.h 
+- Estado.cpp 
+- Estado.h 
+- Estados.cpp 
+- Estados.h 
+
+Pronto, agora pegue o arquivo Main.cpp e inclua o seguinte código nele: 
+
+<code>
+#include "Global.h" 
+
+int main()
+{
+  // Loop principal do jogo
+  while(1)
+  {
+    // Implementação dos eventos: teclas ESC, j e q, e evento de tempo terminado
+    if(kbhit())
+    {
+      int tecla = getch();
+
+      if(tecla == 27) // tecla ESC
+      {
+break;
+      }
+    }
+
+    // Limpa a tela
+    system("cls");
+    
+    // Desenha na tela
+    printf("Loop");
+  }
+
+  return 0;
+}   
+</code>
+
+Pegue o arquivo Global.h e insira o seguinte código: 
+
+<code>
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <time.h>
+</code>
+
+Como eu disse, não estaremos usando nada gráfico aqui. 
+
+Compile o programa e execute. Esse programa é um modelo simplificado de jogo. Você pode observar no código de Main.cpp o loop principal da aplicação que espera entradas no teclado, comando kbhit() e getch(). Caso ocorra algum pressionar de botão, o programa armazena a tecla pressionada na variável específica e caso a tecla pressionada seja um ESC, o loop é interrompido com o comando break. 
+
+Mais a frente no código, podemos encontrar a simulação de uma limpeza no buffer da tela, comando system("cls"), e podemos encontrar o comando printf() que simula o desenhar da tela. Tudo isso dentro de um modelo simplificado que tem como objetivo excluir a complexidade do desenvolvimento de um jogo para que possamos focar o problema na implementação de uma FSM. 
+
+No código de Global.h você pode encontrar as bibliotecas padrão do C que estamos usando nessa aplicação. 
+
+Com essa aplicação, nós já podemos receber 3 dos eventos que acionam as transições de estado da máquina: 
+
+- Pressionar da tecla "j" para jogar - Pressionar da tecla "q" para sair - Pressionar da tecla "ESC" 
+
+Está faltando somente um dos eventos relacionados anteriormente no tutorial: 
+
+- limite de tempo de 5 segundos alcançado após a entrada da aplicação 
+
+Acrescente o código em vermelho na função main para podermos monitorar o tempo: 
+
+<code>
+#include "Global.h" 
+
+int main()
+{
+  // Tempo
+  time_t timer_start;
+  time_t timer_current;
+
+  timer_start = time(NULL);
+
+  double diff = 0;
+
+  // Loop principal do jogo
+  while(1)
+  {
+    timer_current = time(NULL);
+
+    diff = difftime(timer_current, timer_start);
+
+    if(kbhit())
+    {
+      int tecla = getch();
+
+      if(tecla == 27)
+      {
+        break;
+      }
+    }
+
+    // Limpa a tela
+    system("cls");
+
+    // Desenha na tela
+    printf("Loop: %4.2f ", diff);
+  }
+
+  return 0;
+}  
+</code>
+
+Pronto, a partir de agora somos capazes de capturar qualquer evento necessário para que as transições existentes no nosso modelo sejam acionadas. Está na hora de começar a implementar os estados da máquina. 
+

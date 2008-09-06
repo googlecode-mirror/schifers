@@ -1,0 +1,139 @@
+Simplificando o modelo, vamos imaginar um jogo qualquer bem simples. A minha id&eacute;ia &eacute; criar um jogo que possua uma tela de apresenta&ccedil;&atilde;o, uma tela de menu e uma tela com o jogo em si. Dessa forma, conclu&iacute;mos que o n&uacute;mero de estados dessa aplica&ccedil;&atilde;o &eacute; 3 (tr&ecirc;s). <br>
+<br>
+As transi&ccedil;&otilde;es entre os estados s&atilde;o acionadas a partir de certos eventos. Vamos tentar relacion&aacute;-los aqui: <br>
+<br>
+Quando o jogo entra na tela de apresenta&ccedil;&atilde;o n&atilde;o &eacute; poss&iacute;vel que o jogador saia da tela. Ele ter&aacute; que aguardar 5 segundos para que ocorra a primeira transi&ccedil;&atilde;o de estado. Ap&oacute;s os 5 segundos, um evento ocorrer&aacute; e a transi&ccedil;&atilde;o para o estado de menu ser&aacute; acionada. Portanto, o primeiro evento de transi&ccedil;&atilde;o &eacute; o tempo alcan&ccedil;ar 5 segundos ap&oacute;s a entrada na m&aacute;quina. <br>
+<br>
+Dentro do estado de menu, o jogador pode sair da aplica&ccedil;&atilde;o pressionando o bot&atilde;o sa&iacute;da ou pode entrar no estado jogo, pressionando o bot&atilde;o jogar. As transi&ccedil;&otilde;es nesse estado ocorrem somente com o pressionamento de dois bot&otilde;es. <br>
+<br>
+Por &uacute;ltimo, o jogador estando dentro da tela de jogo, pode sair da mesma pressionando o bot&atilde;o ESC no teclado. Ao sair desse estado, a m&aacute;quina volta para o estado menu. <br>
+<br>
+Vamos visualizar em um diagrama de estados da UML o modelo de comportamento desse jogo: <br>
+<br>
+<center>
+<img src='/schifers/images/art02/fig01.jpg' border='0'>
+</center>
+<br>
+Com esse diagrama, conseguimos ver exatamente o comportamento do jogo mapeado em um modelo de FSM. <br>
+<br>
+Ap&oacute;s ter definido nosso modelo, podemos come&ccedil;ar a implementar. <br>
+<br>
+Como meu objetivo &eacute; mostrar a implementa&ccedil;&atilde;o do State Pattern, n&atilde;o vou apresentar uma aplica&ccedil;&atilde;o gr&aacute;fica aqui. Tudo ser&aacute; implementado no console do DOS. <br>
+<br>
+Ao c&oacute;digo ent&atilde;o... <br>
+<br>
+Crie um projeto vazio com o nome de MaquinaEstado no Dev-C++. <br>
+<br>
+Acrescente os seguintes arquivos no projeto: <br>
+<br>
+- Main.cpp <br>
+- Global.h <br>
+- Maquina.cpp <br>
+- Maquina.h <br>
+- Estado.cpp <br>
+- Estado.h <br>
+- Estados.cpp <br>
+- Estados.h <br>
+<br>
+Pronto, agora pegue o arquivo Main.cpp e inclua o seguinte c&oacute;digo nele: <br>
+<br>
+<center><table width='90%' cellspacing='0' cellpadding='0' bgcolor='#EEEEEE'><tr><td><font face='arial' color='#000000' size='1'>
+#include&nbsp;&quot;Global.h&quot;&nbsp;<br>
+<br>
+int&nbsp;main()<br>
+{<br>
+&nbsp;&nbsp;//&nbsp;Loop&nbsp;principal&nbsp;do&nbsp;jogo<br>
+&nbsp;&nbsp;while(1)<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Implementa&ccedil;&atilde;o&nbsp;dos&nbsp;eventos:&nbsp;teclas&nbsp;ESC,&nbsp;j&nbsp;e&nbsp;q,&nbsp;e&nbsp;evento&nbsp;de&nbsp;tempo&nbsp;terminado<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if(kbhit())<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;tecla&nbsp;=&nbsp;getch();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(tecla&nbsp;==&nbsp;27)&nbsp;//&nbsp;tecla&nbsp;ESC<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Limpa&nbsp;a&nbsp;tela<br>
+&nbsp;&nbsp;&nbsp;&nbsp;system(&quot;cls&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Desenha&nbsp;na&nbsp;tela<br>
+&nbsp;&nbsp;&nbsp;&nbsp;printf(&quot;Loop&quot;);<br>
+&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;return&nbsp;0;<br>
+}&nbsp;&nbsp;&nbsp;<br>
+</font></td></tr></table></center><br>
+<br>
+Pegue o arquivo Global.h e insira o seguinte c&oacute;digo: <br>
+<br>
+<center><table width='90%' cellspacing='0' cellpadding='0' bgcolor='#EEEEEE'><tr><td><font face='arial' color='#000000' size='1'>
+#include&nbsp;&lt;stdio.h&gt;<br>
+#include&nbsp;&lt;conio.h&gt;<br>
+#include&nbsp;&lt;stdlib.h&gt;<br>
+#include&nbsp;&lt;time.h&gt;<br>
+</font></td></tr></table></center><br>
+<br>
+Como eu disse, n&atilde;o estaremos usando nada gr&aacute;fico aqui. <br>
+<br>
+Compile o programa e execute. Esse programa &eacute; um modelo simplificado de jogo. Voc&ecirc; pode observar no c&oacute;digo de Main.cpp o loop principal da aplica&ccedil;&atilde;o que espera entradas no teclado, comando kbhit() e getch(). Caso ocorra algum pressionar de bot&atilde;o, o programa armazena a tecla pressionada na vari&aacute;vel espec&iacute;fica e caso a tecla pressionada seja um ESC, o loop &eacute; interrompido com o comando break. <br>
+<br>
+Mais a frente no c&oacute;digo, podemos encontrar a simula&ccedil;&atilde;o de uma limpeza no buffer da tela, comando system(&quot;cls&quot;), e podemos encontrar o comando printf() que simula o desenhar da tela. Tudo isso dentro de um modelo simplificado que tem como objetivo excluir a complexidade do desenvolvimento de um jogo para que possamos focar o problema na implementa&ccedil;&atilde;o de uma FSM. <br>
+<br>
+No c&oacute;digo de Global.h voc&ecirc; pode encontrar as bibliotecas padr&atilde;o do C que estamos usando nessa aplica&ccedil;&atilde;o. <br>
+<br>
+Com essa aplica&ccedil;&atilde;o, n&oacute;s j&aacute; podemos receber 3 dos eventos que acionam as transi&ccedil;&otilde;es de estado da m&aacute;quina: <br>
+<br>
+- Pressionar da tecla &quot;j&quot; para jogar - Pressionar da tecla &quot;q&quot; para sair - Pressionar da tecla &quot;ESC&quot; <br>
+<br>
+Est&aacute; faltando somente um dos eventos relacionados anteriormente no tutorial: <br>
+<br>
+- limite de tempo de 5 segundos alcan&ccedil;ado ap&oacute;s a entrada da aplica&ccedil;&atilde;o <br>
+<br>
+Acrescente o c&oacute;digo em vermelho na fun&ccedil;&atilde;o main para podermos monitorar o tempo: <br>
+<br>
+<center><table width='90%' cellspacing='0' cellpadding='0' bgcolor='#EEEEEE'><tr><td><font face='arial' color='#000000' size='1'>
+#include&nbsp;&quot;Global.h&quot;&nbsp;<br>
+<br>
+int&nbsp;main()<br>
+{<br>
+&nbsp;&nbsp;//&nbsp;Tempo<br>
+&nbsp;&nbsp;time_t&nbsp;timer_start;<br>
+&nbsp;&nbsp;time_t&nbsp;timer_current;<br>
+<br>
+&nbsp;&nbsp;timer_start&nbsp;=&nbsp;time(NULL);<br>
+<br>
+&nbsp;&nbsp;double&nbsp;diff&nbsp;=&nbsp;0;<br>
+<br>
+&nbsp;&nbsp;//&nbsp;Loop&nbsp;principal&nbsp;do&nbsp;jogo<br>
+&nbsp;&nbsp;while(1)<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;timer_current&nbsp;=&nbsp;time(NULL);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;diff&nbsp;=&nbsp;difftime(timer_current,&nbsp;timer_start);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if(kbhit())<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;tecla&nbsp;=&nbsp;getch();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(tecla&nbsp;==&nbsp;27)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Limpa&nbsp;a&nbsp;tela<br>
+&nbsp;&nbsp;&nbsp;&nbsp;system(&quot;cls&quot;);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Desenha&nbsp;na&nbsp;tela<br>
+&nbsp;&nbsp;&nbsp;&nbsp;printf(&quot;Loop:&nbsp;%4.2f&nbsp;&quot;,&nbsp;diff);<br>
+&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;return&nbsp;0;<br>
+}&nbsp;&nbsp;<br>
+</font></td></tr></table></center><br>
+<br>
+Pronto, a partir de agora somos capazes de capturar qualquer evento necess&aacute;rio para que as transi&ccedil;&otilde;es existentes no nosso modelo sejam acionadas. Est&aacute; na hora de come&ccedil;ar a implementar os estados da m&aacute;quina. <br>
+<br>

@@ -1,0 +1,150 @@
+Vamos observar o codigo da classe Maquina. Abra o arquivo Maquina.h e inclua o seguinte c&oacute;digo nele: <br>
+<br>
+<center><table width='90%' cellspacing='0' cellpadding='0' bgcolor='#EEEEEE'><tr><td><font face='arial' color='#000000' size='1'>
+#ifndef&nbsp;MAQUINA_H<br>
+#define&nbsp;MAQUINA_H<br>
+<br>
+class&nbsp;Estado;<br>
+<br>
+class&nbsp;Maquina<br>
+{<br>
+&nbsp;&nbsp;private:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Inst&acirc;ncia&nbsp;&uacute;nica&nbsp;da&nbsp;classe&nbsp;(Singleton)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;Maquina*&nbsp;m_pInstancia;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Estado&nbsp;atual<br>
+&nbsp;&nbsp;&nbsp;&nbsp;class&nbsp;Estado*&nbsp;m_pEstadoAtual;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Indica&nbsp;se&nbsp;a&nbsp;m&aacute;quina&nbsp;tem&nbsp;que&nbsp;parar<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bool&nbsp;m_Finalizar;<br>
+&nbsp;&nbsp;public:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Construtor&nbsp;da&nbsp;classe<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Maquina();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Cria&nbsp;a&nbsp;inst&acirc;ncia&nbsp;&uacute;nica&nbsp;da&nbsp;classe&nbsp;(Singleton)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;Maquina*&nbsp;CriaInstancia();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Executa&nbsp;um&nbsp;frame&nbsp;de&nbsp;anima&ccedil;&atilde;o&nbsp;do&nbsp;estado&nbsp;atual<br>
+&nbsp;&nbsp;&nbsp;&nbsp;void&nbsp;ExecutaFrame();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Executa&nbsp;transi&ccedil;&atilde;o&nbsp;de&nbsp;estados<br>
+&nbsp;&nbsp;&nbsp;&nbsp;void&nbsp;ExecutaTransicao(Estado*&nbsp;estado);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Finaliza&nbsp;a&nbsp;m&aacute;quina<br>
+&nbsp;&nbsp;&nbsp;&nbsp;void&nbsp;Finalizar();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Pergunta&nbsp;se&nbsp;pode&nbsp;finalizar&nbsp;a&nbsp;m&aacute;quina<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bool&nbsp;PodeFinalizar();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Eventos&nbsp;de&nbsp;mudan&ccedil;a&nbsp;de&nbsp;estado<br>
+&nbsp;&nbsp;&nbsp;&nbsp;void&nbsp;AoPressionarJogar();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;void&nbsp;AoPressionarSair();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;void&nbsp;AoPressionarESC();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;void&nbsp;AoTerminarTempo();<br>
+};<br>
+<br>
+#endif&nbsp;&nbsp;<br>
+</font></td></tr></table></center><br>
+<br>
+Nesse fragmento acima n&oacute;s temos a classe Maquina que ir&aacute; controlar as mudan&ccedil;as de estado do meu jogo. Ao criar o objeto Maquina, eu utilizarei o padr&atilde;o Singleton garantindo que eu tenha somente uma inst&acirc;ncia dessa classe em toda a execu&ccedil;&atilde;o da minha aplica&ccedil;&atilde;o. Esse padr&atilde;o n&atilde;o me deixa cometer o erro de criar duas inst&acirc;ncias dessa classe. Para aprender mais sobre o Singleton consulte o livro do Gamma ou procure na Internet, existem v&aacute;rios sites que mostram como implement&aacute;-lo. Esse padr&atilde;o ser&aacute; assunto de um tutorial futuro aqui na Schifer. O atributo m_pInstancia aponta para a inst&acirc;ncia &uacute;nica da m&aacute;quina e o m&eacute;todo CriaInstancia() &eacute; o respons&aacute;vel pela cria&ccedil;&atilde;o da inst&acirc;ncia &uacute;nica. <br>
+<br>
+O segundo atributo da classe Maquina &eacute; uma refer&ecirc;ncia para o estado corrente do meu jogo: m_pEstadoAtual. <br>
+<br>
+Em seguida, eu coloco um atributo booleano que informa se a m&aacute;quina ir&aacute; finalizar ou n&atilde;o. Caso esse atributo assuma um valor verdadeiro, a m&aacute;quina ir&aacute; informar &agrave; aplica&ccedil;&atilde;o que o loop principal deve ser interrompido atrav&eacute;s de um comando break. Quem informa a aplica&ccedil;&atilde;o &eacute; o m&eacute;todo PodeFinalizar(). Esse m&eacute;todo &eacute; chamado no meio do loop principal. Existe ainda um m&eacute;todo Finalizar() que pode ser chamado em qualquer lugar da aplica&ccedil;&atilde;o informando que a partir de agora, a m&aacute;quina pode interromper o fluxo de execu&ccedil;&atilde;o, ou seja, esse m&eacute;todo informa que j&aacute; pode finalizar e o m&eacute;todo PodeFinalizar() s&oacute; responde a pergunta, pois em um ponto espec&iacute;fico da execu&ccedil;&atilde;o, precisamos perguntar se podemos ou n&atilde;o executar o comando break. <br>
+<br>
+Temos, ent&atilde;o, o construtor da classe que limpa os ponteiros e faz com que a vari&aacute;vel m_Finalizar receba falso, pois quando for verdadeiro, ela ir&aacute; terminar a execu&ccedil;&atilde;o do loop principal. <br>
+<br>
+Ap&oacute;s o construtor, temos o m&eacute;todo CriaInstancia() do Singleton. <br>
+<br>
+Depois do m&eacute;todo do Singleton, temos o m&eacute;todo ExecutaFrame(). Ele &eacute; respons&aacute;vel por chamar o m&eacute;todo ExecutaFrame() do estado corrente. <br>
+<br>
+Os dois m&eacute;todos seguintes s&atilde;o os m&eacute;todos de finaliza&ccedil;&atilde;o da m&aacute;quina j&aacute; explicado. <br>
+<br>
+Por &uacute;ltimo, n&oacute;s temos os m&eacute;todos que lan&ccedil;am os eventos que a m&aacute;quina trata. Para cada evento tratado, deve existir um m&eacute;todo de lan&ccedil;amento desse evento. Eu poderia trocar esses nomes por nomes mais conceituais de jogo, mas para manter a complexidade baixa, eu chamei os m&eacute;todos com os nomes das teclas que ser&atilde;o pressionadas, mas isso cabe a voc&ecirc; decidir como ir&aacute; implementar. <br>
+<br>
+Vamos observar o c&oacute;digo de implementa&ccedil;&atilde;o dos m&eacute;todos acima: <br>
+<br>
+<center><table width='90%' cellspacing='0' cellpadding='0' bgcolor='#EEEEEE'><tr><td><font face='arial' color='#000000' size='1'>
+#include&nbsp;&quot;Global.h&quot;<br>
+<br>
+Maquina::Maquina()<br>
+{<br>
+&nbsp;&nbsp;m_pEstadoAtual&nbsp;=&nbsp;0;<br>
+&nbsp;&nbsp;m_Finalizar&nbsp;=&nbsp;false;<br>
+}<br>
+<br>
+//&nbsp;Defini&ccedil;&atilde;o&nbsp;do&nbsp;atributo&nbsp;inst&acirc;ncia<br>
+Maquina*&nbsp;Maquina::m_pInstancia&nbsp;=&nbsp;0;<br>
+<br>
+//&nbsp;Cria&nbsp;a&nbsp;inst&acirc;ncia&nbsp;&uacute;nica&nbsp;da&nbsp;classe&nbsp;(Singleton)<br>
+Maquina*&nbsp;Maquina::CriaInstancia()<br>
+{<br>
+&nbsp;&nbsp;if(m_pInstancia&nbsp;==&nbsp;0)<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;m_pInstancia&nbsp;=&nbsp;new&nbsp;Maquina();<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;return&nbsp;m_pInstancia;<br>
+}<br>
+<br>
+//&nbsp;Executa&nbsp;uma&nbsp;transi&ccedil;&atilde;o&nbsp;de&nbsp;estado<br>
+void&nbsp;Maquina::ExecutaTransicao(Estado*&nbsp;estado)<br>
+{<br>
+&nbsp;&nbsp;//&nbsp;Executa&nbsp;o&nbsp;evento&nbsp;AoSair()&nbsp;do&nbsp;estado&nbsp;antigo&nbsp;antes&nbsp;de&nbsp;executar&nbsp;a&nbsp;transi&ccedil;&atilde;o<br>
+&nbsp;&nbsp;if(m_pEstadoAtual&nbsp;!=&nbsp;0)<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;m_pEstadoAtual-&gt;AoSair();<br>
+&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;m_pEstadoAtual&nbsp;=&nbsp;estado;<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;//&nbsp;Executa&nbsp;o&nbsp;evento&nbsp;AoEntrar()&nbsp;do&nbsp;estado&nbsp;novo&nbsp;logo&nbsp;ap&oacute;s&nbsp;executar&nbsp;a&nbsp;transi&ccedil;&atilde;o<br>
+&nbsp;&nbsp;m_pEstadoAtual-&gt;AoEntrar();<br>
+}<br>
+<br>
+//&nbsp;Executa&nbsp;um&nbsp;frame&nbsp;de&nbsp;anima&ccedil;&atilde;o&nbsp;do&nbsp;estado&nbsp;atual<br>
+void&nbsp;Maquina::ExecutaFrame()<br>
+{<br>
+&nbsp;&nbsp;m_pEstadoAtual-&gt;ExecutaFrame();<br>
+}<br>
+<br>
+void&nbsp;Maquina::Finalizar()<br>
+{<br>
+&nbsp;&nbsp;m_Finalizar&nbsp;=&nbsp;true;<br>
+}<br>
+<br>
+bool&nbsp;Maquina::PodeFinalizar()<br>
+{<br>
+&nbsp;&nbsp;return&nbsp;m_Finalizar;<br>
+}<br>
+<br>
+//&nbsp;Eventos&nbsp;de&nbsp;mudan&ccedil;a&nbsp;de&nbsp;estado<br>
+void&nbsp;Maquina::AoPressionarJogar()<br>
+{<br>
+&nbsp;&nbsp;m_pEstadoAtual-&gt;AoPressionarJogar(this);<br>
+}<br>
+<br>
+void&nbsp;Maquina::AoPressionarSair()<br>
+{<br>
+&nbsp;&nbsp;m_pEstadoAtual-&gt;AoPressionarSair(this);<br>
+}<br>
+<br>
+void&nbsp;Maquina::AoPressionarESC()<br>
+{<br>
+&nbsp;&nbsp;m_pEstadoAtual-&gt;AoPressionarESC(this);<br>
+}<br>
+<br>
+void&nbsp;Maquina::AoTerminarTempo()<br>
+{<br>
+&nbsp;&nbsp;m_pEstadoAtual-&gt;AoTerminarTempo(this);<br>
+}&nbsp;&nbsp;<br>
+</font></td></tr></table></center><br>
+<br>
+O c&oacute;digo come&ccedil;a com o construtor que j&aacute; foi explicado anteriormente, assim como o pr&oacute;ximo m&eacute;todo que &eacute; o respons&aacute;vel pela cria&ccedil;&atilde;o do Singleton. <br>
+<br>
+O m&eacute;todo ExecutaTransicao() &eacute; o respons&aacute;vel pela troca de estados. Existe um teste inicial que verifica se o valor do estado corrente &eacute; zero, pois se for, um erro ser&aacute; lan&ccedil;ado ao se tentar usar um m&eacute;todo a partir de um ponteiro para objeto vazio. Esse teste &eacute; necess&aacute;rio, pois n&atilde;o podemos chamar o m&eacute;todo AoSair() na primeira vez que estivermos executando a m&aacute;quina. Em seguida ele muda a refer&ecirc;ncia do estado atual e logo em seguida chama o m&eacute;todo AoEntrar() para o novo objeto que o ponteiro estar&aacute; referenciando. <br>
+<br>
+Ap&oacute;s trocar o estado, temos o m&eacute;todo ExecutaFrame() que como foi explicado anteriormente, chama o ExecutaFrame() do estado atual. <br>
+<br>
+Temos ent&atilde;o os m&eacute;todos que fazem o controle de finaliza&ccedil;&atilde;o da m&aacute;quina, j&aacute; explicados, e os m&eacute;todos que implementam os eventos que a m&aacute;quina trata. Todos eles chamam seus respectivos m&eacute;todos nas classes filhas. É nas classes filhas que implementamos a l&oacute;gica das transi&ccedil;&otilde;es, pois dependendo do evento que ocorrer e do estado atual, o pr&oacute;prio estado indica qual o pr&oacute;ximo estado que a m&aacute;quina assumir&aacute;. <br>
+<br>

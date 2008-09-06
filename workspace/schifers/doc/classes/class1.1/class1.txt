@@ -1,0 +1,60 @@
+Nessa aula estaremos vendo como configurar um projeto CodeBlocks + SDL e estaremos trabalhando a organização inicial de um projeto de jogo em SDL.
+
+Para aprender a configurar o projeto, acesse o link abaixo e leia todo o artigo Configuração de Projeto SDL com CodeBlocks:
+
+<a href='/schifers/pages/pgArticlePage.php'>Artigos do Blog's Schifer</a>
+
+
+Com o artigo já configurado, podemos começar a trabalhar na seguinte organização de classes para o projeto. Segue abaixo o diagrama de classes básico para essa primeira aula:
+
+<center>
+<img src='/schifers/images/class01.1/fig01.jpg' border='0'>
+</center>
+
+Os arquivos que estaremos trabalhando são os seguintes:
+
+- Global.h
+- SdlApplication.h
+- SdlApplication.cpp
+- Main.h
+- Main.cpp
+
+Faça o download dos arquivos no link abaixo:
+
+<a href='/schifers/files/Aula1.1.zip'>Aula 1.1</a>
+
+
+O arquivo Global.h faz a inclusão de todos os arquivos de cabeçalho nos nossos arquivos de classe. A ordem em que os includes são feitos aqui é importante, pois os arquivos que utilizam uma classe, devem ter essa classe declarada através de um arquivo de cabeçalho chamado anteriormente.
+
+O arquivo SdlApplication.h possui a declaração da classe SdlApplication, ou seja, o meu "wrapper" para a SDL. Essa palavra "wrapper" traduzida para o português, segundo o dicionário Michaelis, significa:
+
+wrapper
+1 empacotador, embalador. 
+3 invólucro, envoltório.
+
+Portanto, segundo essas traduções, essa classe seria uma classe empacotadora das funções da SDL e facilitadora do uso dela.
+
+A implementação dessa classe irá se encontrar no arquivo SdlApplication.cpp.
+
+O arquivo Main.h possui a declaração da minha classe Game. A classe Game, como vocês podem observar no diagrama de classes mais acima na página, é uma generalização da classe SdlApplication, portanto, todos os atributos e métodos da classe SdlApplication são herdados pela classe Game.
+
+No arquivo Main.cpp encontramos a implementação da classe Game e a função inicial do nosso programa, a nossa função main.
+
+Com essa organização, eu espero conseguir atingir uma certa independência de biblioteca gráfica para o meu jogo, ou seja, se um dia eu quiser modificar a minha biblioteca gráfica para Allegro ou para a própria DirectX, eu não preciso mudar o código do jogo, eu só precisaria mudar o meu wrapper e criar um outro para a bilbioteca nova, exemplo: AllegroApplication (wrapper para a biblioteca Allegro).
+
+Um outro aspecto que desejo alcançar é a simplicidade do código. Se vocês observarem a função main no arquivo Main.cpp, vocês verão que ela só cria uma instância da classe Game e chama o método run() dessa classe (herdado da SdlApplication). Com isso, a minha função main fica muito simples e a partir daqui começamos a ver os ganhos da orientação a objeto, criando códigos reutilizáveis e bem simples.
+
+Vamos observar a classe SdlApplication agora. Essa classe possui 4 métodos, 1 concreto e 3 abstratos (virtuais).
+
+O método concreto é o run(). Esse método é utilizado para inicializar e finalizar a própria SDL. Ele possui também o loop principal do jogo e a saída desse loop.
+
+Os outros 3 métodos: start(), loop() e end() são métodos chamados abstratos, ou seja, eles precisam ser implementados nas sub-classes de SdlApplication. No nosso caso, a implementação deles será encontrada na classe Game.
+
+O método start() faz a inicialização dos objetos que estaremos usando no jogo. O método loop() é o loop principal do jogo, é nele que teremos as atualizações dos objetos, o ato de desenhar os objetos, o recebimento de eventos, entre outros. O método end() é onde finalizamos os objetos utilizados no nosso jogo.
+
+A implementação desses métodos pode ser encontrada no arquivo Main.cpp. Neste ponto do curso, estes arquivos ainda estão vazios.
+
+Basicamente é isso que iremos ver nessa aula.
+
+Na próxima aula, iremos incluir alguns comandos da SDL no método run() da classe SdlApplication.
+

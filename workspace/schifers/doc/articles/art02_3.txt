@@ -1,0 +1,63 @@
+Segundo Erich Gamma, inicialmente, temos que implementar uma classe abstrata chamada, no meu caso, de Estado e essa classe, basicamente, irá implementar uma interface comum para todos os estados do jogo. As subclasses de Estado, implementam, então, comportamentos específicos a cada um destes estados. 
+
+O modelo não é complicado. Segue abaixo um diagrama de classes do modelo que irei implementar baseado no livro do Gamma. 
+
+<center>
+<img src='/schifers/images/art02/fig02.jpg' border='0'>
+</center>
+
+Nesse modelo, a classe Maquina mantém uma instância da classe Estado e a utiliza para executar operações específicas ao estado do jogo. 
+
+Toda vez que um estado muda, ou melhor, quando ocorre uma transição de estados, a instância de Estado da classe Maquina muda. 
+
+Primeiramente, vamos observar o código da classe Estado, pai de todos os estados do jogo. Abra o arquivo Estado.h e acrescente o código abaixo: 
+
+<code>
+#ifndef ESTADO_H
+#define ESTADO_H
+
+class Estado
+{
+  public:
+    // Eventos de mudança de estado
+    virtual void AoPressionarJogar(Maquina* maquina) {};
+    virtual void AoPressionarSair(Maquina* maquina) {};
+    virtual void AoPressionarESC(Maquina* maquina) {};
+    virtual void AoTerminarTempo(Maquina* maquina) {};
+
+    // Executa o evento de entrada do estado
+    virtual void AoEntrar() {};
+
+    // Executa um frame de animação do estado atual
+    virtual void ExecutaFrame() {};
+
+    // Executa o evento de saída do estado
+    virtual void AoSair() {};
+  protected:
+    void ExecutaTransicao(Maquina* maquina, Estado* estado);
+};
+
+#endif  
+</code>
+
+A nossa classe Estado possui um método para cada evento tratado pela máquina. Esses métodos são abstratos (virtual) e podem ser reescritos nas classes filhas de Estado, ou seja, cada um dos estados do jogo terá o tratamento de um evento específico para o seu caso. Lembrando que não existe a necessidade de implementação de todos os métodos de evento na classe filha, vou explicar isso mais a frente quando eu mostrar a implementação dessa classe. 
+
+Como meus estados são estados de um jogo, antes de executar o frame de animação, eu preciso instanciar todos os objetos que irei utilizar na tela e os meus controladores de objetos, além de outras coisas. Por isso que crio dois eventos de estado que são: AoEntrar() e AoSair(). No momento em que executo uma transição de estados, eu faço uma chamada ao método AoSair() do estado atual, pois a máquina irá sair desse estado no momento da transição e após ocorrer a transição eu faço uma chamada ao método AoEntrar() do estado atual, pois o estado foi alterado para um novo estado. Esses dois métodos são chamados antes e depois da transição e eles são responsáveis por instanciar e liberar os recursos usados no Estado em questão. 
+
+O método ExecutaFrame() é usado para a lógica contida no loop do jogo referente a um estado específico. É nesse método que eu, por exemplo, no EstadoJogo desenho e atualizo o jogador, os inimigos, os tiros, etc. 
+
+Por último, o método ExecutaTransicao() é utilizado para chamar os métodos AoSair() e AoEntrar() e para executar a transição de estados em si. Ele é implementado na classe pai Estado, pois a lógica deve ser a mesma para todos os estados filhos desta classe. 
+
+Vamos observar o código de implementação dessa classe Estado: 
+
+<code>
+#include "Global.h"
+
+void Estado::ExecutaTransicao(Maquina* maquina, Estado* estado)
+{
+  maquina->ExecutaTransicao(estado);
+}  
+</code>
+
+O único método que temos que implementar aqui é o método ExecutaTransicao(). Ao ser chamado, ele informa à máquina, através do método maquina->ExecutaTransicao(estado) o novo estado que a máquina vai assumir como estado corrente. 
+

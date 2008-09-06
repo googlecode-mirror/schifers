@@ -1,0 +1,31 @@
+Ao construir um jogo, existem muitas coisas que devemos fazer para dar suporte às características que queremos implementar nele. Acrescentar essas características tipo: carga de imagens, contrução de menus, construção de mapas, controle de colisões, utilização de GUIs, utilização de efeitos sonoros e música, entre outras, não deixa de ser uma tarefa bem complexa. Um programa que alcança esse nível de complexidade precisa estar bem estruturado e precisa fornecer ferramentas que auxiliem na detecção de falhas e na lógica de programação. O objetivo dessa aula é mostrar a vocês como construir um suporte à geração de logs do jogo e, consequentemente, fazer um tratamento de erros que gere as mensagens de erro nessa log. Com essas ferramentas, iremos tentar construir a funcionalidade de construção de menus para o nosso jogo exemplo.
+
+Antes de mais nada, faça o download do arquivo dessa aula no link abaixo:
+
+<a href='/schifers/files/Aula3.zip'>Aula 3</a>
+
+
+Essa aula irá se dividir em 3 partes. Na primeira parte, estaremos trabalhando o conceito de máquinas de estados e sua utilização na construção de um menu para o seu jogo. Nós utilizaremos o padrão de projeto "State Pattern" do livro do Erich Gamma e seus co-autores. Estarei me baseando nessa primeira parte no artigo publicado por mim na seção de artigos do meu site. Siga o link abaixo e leia o artigo completo, pois a teoria será explicada baseada neste artigo:
+
+<a href='/schifers/pages/pgArticlePage.php'>Artigos</a>
+
+
+Terminada essa primeira parte teórica, estaremos vendo as duas novas classes que criei para darem suporte à implementação desse menu e do próprio jogo em si, no futuro.
+
+As classes criadas são:
+
+- Log
+- Exception
+
+Observe o diagrama abaixo para compreender a ligação dessas classes com o restante do código:
+
+<center>
+<img src='/schifers/images/class03/fig01.jpg'>
+</center>
+
+Agora o outro pedaço do diagrama com a parte da máquina de estados:
+
+<center>
+<img src='/schifers/images/class03/fig02.jpg'>
+</center>
+

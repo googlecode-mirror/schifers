@@ -1,0 +1,34 @@
+Nesse tutorial eu vou ensinar uma técnica de programação muito útil para o desenvolvimento de jogos. 
+
+Trata-se da máquina de estado que pode ser usada para controle da execução do seu jogo entre outras coisas. 
+
+Antes de mais nada, vamos chamar o objeto de estudo deste tutorial corretamente, pois o nome está incompleto. 
+
+As máquinas de estado são mais corretamente denominadas Máquina de Estado Finito ou em inglês "Finite State Machine" ou ainda melhor, FSM. 
+
+A utilização das FSMs no mundo da programação já é muito difundida e qualquer projeto mais complexo pode se utilizar desta técnica para resolver problemas comuns de lógica. 
+
+Com a utilização, foi-se criando um padrão de implementação para esse objeto e não é à toa que os autores Erich Gamma, Richard Helm, Ralph Johnson e John Vlissides, incluíram um padrão que pode ser usado para implementar a FSM em C++ no livro "Design Patterns: Elements of Reusable Object-Oriented Software". 
+
+Eu já encontrei FSMs em implementações de jogos, algoritmos de inteligência artificial, algoritmos de parsing (compiladores) e em muitos outros lugares, ou seja, é muito importante para qualquer desenvolvedor de jogos entender o funcionamento das Máquinas de Estado Finito. 
+
+O estudo das FSMs é normalmente conhecido como a Teoria dos Autômatos ou ainda Teoria da Computação e ela é ensinada nas universidades para a implementação de compiladores e algoritmos de parsing, apesar de ter muitas outras aplicações. 
+
+Vamos então ao significado do termo: FSM é um modelo de comportamento composto por um número finito de estados, transições e eventos que geram essas transições. 
+
+Um modelo é uma interpretação ou abstração de uma realidade para que possamos compreender e utilizar o objeto com maior facilidade. 
+
+Portanto, a máquina de estados cria um modelo do comportamento de um objeto para que possamos utilizá-lo em nossas aplicações. 
+
+Por número finito de estados queremos dizer que nós podemos contar quantos estados a máquina possui. 
+
+Logo, esse modelo de comportamento pode assumir um número limitado de estados. 
+
+Com base nisso, nós podemos representar uma FSM através de um "diagrama de transição de estados" ou através de um "diagrama de estados" definido na UML. 
+
+Não vou me aprofundar nos diagramas citados acima, pois eles não entram no escopo deste tutorial. 
+
+O que eu vim aqui mostrar é uma implementação de uma FSM utilizando o State Pattern definido no livro de Padrões de Projetos do Erich Gamma. 
+
+Vamos ao exemplo... 
+

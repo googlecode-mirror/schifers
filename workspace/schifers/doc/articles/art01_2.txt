@@ -1,0 +1,70 @@
+Agora chegou a hora de instalarmos a biblioteca SDL. A SDL ou Simple DirectMedia Library é uma biblioteca que, inicialmente, foi desenvolvida para Linux e, posteriormente, foi portada para Windows. Ela é uma das mais indicadas bibliotecas para o aprendizado de Programação de Jogos pela facilidade do uso de suas funções. 
+
+Para que possamos instalar a biblioteca, você deve fazer o download do seguinte arquivo: 
+
+http://www.libsdl.org/release/SDL-devel-1.2.13-mingw32.tar.gz 
+
+Após fazer o download do arquivo, descompacte-o em uma pasta do Windows, de preferência em C:/, pois assim fica fácil encontrarmos os arquivos depois. Não esqueça de informar para o descompactador que você deseja manter a estrutura de diretórios já existente no arquivo, pois dessa forma os arquivos serão jogados dentro de um diretório C:/SDL-1.2.13 e não diretamente no raíz da máquina. 
+
+Caso você não queira instalar no raiz da sua máquina, escolha um outro local e armazene o caminho para que possamos utilizar quando formos configurar o compilador. 
+
+Em seguida abra o seu Dev-C++ e você deverá se deparar com uma tela igual a que você está vendo aqui embaixo: 
+
+<center>
+<img src='/schifers/images/art01/fig09.gif' border='0'>
+</center>
+
+Como você pode observar, eu costumo instalar o Dev-C++ em inglês. Isso é mais uma questão de preferência mesmo antes de qualquer coisa. Eu tenho medo de que o software tenha bugs ou erros de tradução em uma versão adaptada para o português. 
+
+Agora, vá na opção da barra de menu > FILE > NEW > PROJECT e uma tela igual a essa aqui embaixo abrirá para você: 
+
+<center>
+<img src='/schifers/images/art01/fig10.gif' border='0'>
+</center>
+
+Selecione a opção EMPTY PROJECT nos ícones que se encontram no centro da tela. Na caixa de texto abaixo, digite o nome do projeto Tutorial da mesma forma que está na tela acima e pressione OK. 
+
+Em seguida, abrirá uma tela para você selecionar o local físico e o nome físico do arquivo de projeto. Eu costumo gravar meus projetos em uma pasta Projetos no meu PenDrive, porém se você optar por gravar em outro local, eu recomendaria que você criasse um diretório Projetos no C:/ da sua máquina. No nome do arquivo, digite Tutorial.dev da mesma forma que você vê na seguinte tela: 
+
+<center>
+<img src='/schifers/images/art01/fig11.gif' border='0'>
+</center>
+
+Agora, clique no botão Salvar e a seguinte tela aparecerá para você com o projeto Tutorial aparecendo na aba de projetos a esquerda da tela principal: 
+
+<center>
+<img src='/schifers/images/art01/fig12.gif' border='0'>
+</center>
+
+Com isso você já tem um projeto pronto para uso no Dev-C++, porém vamos configurar a SDL nesse projeto. 
+
+Selecione no menu a opção PROJECT > PROJECT OPTIONS e a tela abaixo irá aparecer na sua tela: 
+
+<center>
+<img src='/schifers/images/art01/fig13.gif' border='0'>
+</center>
+
+Nessa tela, você pode observar diversas abas de configuração, porém a aba que nos interessa é a aba PARAMETERS. Nela você encontrará uma caixa de texto, a última, com o label LINKER. Cole os seguintes parâmetros nessa caixa: 
+
+-lmingw32 -lSDLMain -lSDL -mwindows 
+
+Esses parâmetros serão utilizados pelo linker para ligar as bibliotecas do compilador MINGW32 e a própria SDL no seu projeto quando o mesmo for compilado. 
+
+Agora, ao invés de selecionar a aba PARAMETERS, escolha a aba DIRECTORIES e procure a aba que tenha o label LIBRARY DIRECTORIES. Nessa aba, você adicionará os arquivos *.lib da SDL. Para isso, clique no botão amarelo que fica em baixo e à direita em relação a grande caixa de texto da tela. Selecione o diretório aonde você instalou a SDL e procure pelo subdiretório LIB. Quando você selecionar o diretório, o caminho completo aparecerá na caixa de texto menor à esquerda do botão amarelo. Confira se o caminho é C:/SDL-1.2.13/lib para aqueles que colocaram a SDL no raíz da máquina. Caso contrário, o caminho tem que ser equivalente ao local em que você instalou a SDL. 
+
+Em seguida, clique no botão ADD e o texto que indica o diretório aparecerá na caixa de texto maior. Isso indica que o compilador já tem acesso aos arquivos da biblioteca. A sua tela deverá estar da seguinte forma: 
+
+<center>
+<img src='/schifers/images/art01/fig14.gif' border='0'>
+</center>
+
+Agora, vá para a aba INCLUDE DIRECTORIES e siga os mesmos passos. Nesse caso, o diretório será C:/SDL-1.2.13/include/SDL. Observe a tela abaixo: 
+
+<center>
+<img src='/schifers/images/art01/fig15.gif' border='0'>
+</center>
+
+Pronto, o seu projeto está criado e configurado para o uso da SDL. 
+
+No próximo tutorial veremos como começar a usar as funções da biblioteca. 
+

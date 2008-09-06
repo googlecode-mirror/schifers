@@ -1,0 +1,19 @@
+O projeto Moskas trata-se de um jogo no estilo Space Invaders. É um jogo infantil e está sendo implementado para concorrer na próxima edição da competição de jogos da PDJ.
+
+A elaboração do jogo tem o objetivo de aprendizado das técnicas de programação de jogos e elaboração de tutoriais e ferramentas sobre as técnicas nele implementadas.
+
+O jogo se trata da invasão de moscas na casa de uma menina que se chama Fofia.
+
+As principais funcionalidades a serem implementadas serão:
+
+- Sistema gráfico 2d
+- Sistema de logging
+- Sistema de erros com tratamento de exceptions
+- Sistema de entrada no teclado, mouse e joystick
+- Sistema de efeitos e sons
+- Interface gráfica de usuários básica
+- Empacotamento de arquivos
+- Máquina de Estado
+- Sistema de apresentação de fontes TTF
+- Localização da aplicação (jogo em várias línguas)
+

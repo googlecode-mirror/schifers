@@ -1,0 +1,11 @@
+Telas
+
+O jogo também terá, basicamente, seis telas. São elas:
+
+- Tela de Entrada: nessa tela se encontra a apresentação da Schifer com o texto "Schifer Tecnologia LTDA apresenta".
+- Tela de Menu: essa é a tela de menu do jogo.
+- Tela de Jogo: tela aonde acontece a ação do jogo.
+- Tela de Créditos: tela com nome dos responsáveis pela criação do jogo.
+- Tela de Ajuda: tela com instruções de como jogar o jogo.
+- Tela de Final: tela com animação ou imagem final.
+

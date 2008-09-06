@@ -1,0 +1,215 @@
+Primeiramente, fa&ccedil;a o download do empacotador no link abaixo:<br>
+<br>
+<a href='http://www.brunoschifer.blog.br/schifers/files/SchiferPacker.zip'>SchiferPacker - vers&atilde;o beta</a>
+<br>
+<br>
+Descompacte o conte&uacute;do em um diret&oacute;rio e n&atilde;o se esque&ccedil;a de levar a bzip2.dll junto para todo lugar que o empacotador for.<br>
+<br>
+Para usar o empacotador, utilize os seguintes comandos:<br>
+<br>
+1 - Cria Header<br>
+2 - Destroi Header<br>
+3 - Insere Item<br>
+4 - Destroi Todos os Itens<br>
+5 - Grava Arquivo<br>
+6 - Carrega Arquivo<br>
+7 - Extrai Arquivo<br>
+8 - Lista Arquivos<br>
+<br>
+0 - Finalizar<br>
+<br>
+Vamos ao tutorial ent&atilde;o. Para criar um arquivo, voc&ecirc; sempre deve criar primeiro um header para ele. A estrutura n&atilde;o existe em mem&oacute;ria, portanto sempre antes de inserir itens no pacote, crie o header do arquivo. É imprescind&iacute;vel esse passo.<br>
+<br>
+Ao clicar na op&ccedil;&atilde;o 1, o programa ir&aacute; devolver uma mensagem dizendo que o header do arquivo foi criado em mem&oacute;ria e ir&aacute; aguardar voc&ecirc; pressionar um bot&atilde;o. Fique atento &agrave;s mensagens.<br>
+<br>
+Caso voc&ecirc; queira, existe a op&ccedil;&atilde;o de liberar a mem&oacute;ria do header criado. Selecione a op&ccedil;&atilde;o 2 para fazer isso.<br>
+<br>
+Quando voc&ecirc; sair do programa, as estruturas ser&atilde;o destru&iacute;das tamb&eacute;m.<br>
+<br>
+Na op&ccedil;&atilde;o 3, voc&ecirc; insere um arquivo dentro do pacote. O programa ir&aacute; solicitar o nome do arquivo que deve ser inserido. O arquivo deve estar sempre dentro do mesmo diret&oacute;rio do programa. Ao digitar o nome do arquivo e pressionar enter, o programa ir&aacute; apresentar uma mensagem de sucesso dizendo se o arquivo foi ou n&atilde;o inclu&iacute;do no pacote.<br>
+<br>
+Ao incluir um arquivo, o programa usa o a biblioteca bzip2 para compact&aacute;-lo. O programa ainda n&atilde;o possui a funcionalidade de criptografar os arquivos.<br>
+<br>
+Os arquivos v&atilde;o sendo criados em sequ&ecirc;ncia dentro de um array de estruturas de arquivo. Essas estruturas ser&atilde;o gravadas no pacote. Cada arquivo com seu header e sua &aacute;rea de dados.<br>
+<br>
+Caso voc&ecirc; queira destruir o array de arquivos, clique na op&ccedil;&atilde;o 4 e a mem&oacute;ria ocupada pelos arquivos ser&aacute; liberada.<br>
+<br>
+Ap&oacute;s selecionar todos os arquivos do pacote, voc&ecirc; pode selecionar a op&ccedil;&atilde;o 5, que possibilitar&aacute; a cria&ccedil;&atilde;o do pacote fisicamente. At&eacute; agora, o pacote est&aacute; todo criado em mem&oacute;ria. Ao selecionar essa op&ccedil;&atilde;o, o programa ir&aacute; solicitar o nome do arquivo de pacote e, ao pressionar enter, o arquivo ser&aacute; criado no mesmo diret&oacute;rio aonde o programa est&aacute; rodando.<br>
+<br>
+Caso voc&ecirc; queira simplesmente carregar um arquivo para mem&oacute;ria, para poder observar seu conte&uacute;do, inserir mais itens ou extrair um arquivo, selecione a op&ccedil;&atilde;o 6. As estruturas do arquivo ser&atilde;o carregadas e voc&ecirc; poder&aacute; adicionar novos itens, listar o conte&uacute;do do pacote ou ainda extrair um dos arquivos que est&atilde;o empacotados. Ao selecionar essa op&ccedil;&atilde;o, o programa solicita o nome do arquivo que voc&ecirc; quer carregar. Ap&oacute;s pressionar enter, o programa carrega os dados e retorna uma mensagem de sucesso.<br>
+<br>
+Com a op&ccedil;&atilde;o 7, voc&ecirc; pode extrair um dos arquivos que est&atilde;o armazenados, basta voc&ecirc; digitar o nome do arquivo e selecionar enter.<br>
+<br>
+Na op&ccedil;&atilde;o 8, o programa retorna a lista de arquivos empacotados no pacote.<br>
+<br>
+Para sair do programa, escolha 0.<br>
+<br>
+Com essas explica&ccedil;&otilde;es, voc&ecirc; &eacute; capaz de usar todas as funcionalidades deste empacotador.<br>
+<br>
+Agora vamos ver a biblioteca de extra&ccedil;&atilde;o de arquivos. Voc&ecirc; pode us&aacute;-la com SDL, Allegro, DirectX ou qualquer outra biblioteca que voc&ecirc; queira.<br>
+<br>
+Primeiramente, fa&ccedil;a o download dos arquivos da biblioteca:<br>
+<br>
+<a href='http://www.brunoschifer.blog.br/schifers/files/LibSchPck.zip'>Schifer Packing Library - vers&atilde;o beta</a>
+<br>
+<br>
+Para usar a biblioteca &eacute; muito simples.<br>
+<br>
+Se voc&ecirc; usa o CodeBlocks, linke o arquivo libschpck.a ao seu projeto.<br>
+<br>
+Se voc&ecirc; usa o VisualStudio, linke o arquivo libschpck.lib ao seu projeto.<br>
+<br>
+Diga ao compilador aonde encontrar o arquivo schpck.h, ou simplesmente inclua ele no seu projeto.<br>
+<br>
+Por &uacute;ltimo, n&atilde;o se esque&ccedil;a de deixar o arquivo libschpck.dll no mesmo diret&oacute;rio que seu programa estiver rodando.<br>
+<br>
+Para usar as fun&ccedil;&otilde;es da biblioteca, preste aten&ccedil;&atilde;o nestas defini&ccedil;&otilde;es:<br>
+<br>
+<center><table width='90%' cellspacing='0' cellpadding='0' bgcolor='#EEEEEE'><tr><td><font face='arial' color='#000000' size='1'>
+struct&nbsp;FILE_HEADER<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;char&nbsp;id[3];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;c&oacute;digo&nbsp;identificador&nbsp;de&nbsp;arquivo&nbsp;&quot;SCH&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;quantity;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;quantidade&nbsp;de&nbsp;arquivos&nbsp;dentro&nbsp;do&nbsp;pacote<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;size;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;tamanho&nbsp;do&nbsp;arquivo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;offset;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;posi&ccedil;&atilde;o&nbsp;onde&nbsp;come&ccedil;a&nbsp;o&nbsp;conte&uacute;do&nbsp;dos&nbsp;arquivos<br>
+};<br>
+<br>
+struct&nbsp;FILE_ITEM_HEADER<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;char&nbsp;filename[MAX_FILENAME_SIZE];&nbsp;&nbsp;&nbsp;//&nbsp;nome&nbsp;do&nbsp;arquivo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;size;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;tamanho&nbsp;do&nbsp;arquivo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;compressed_size;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;tamanho&nbsp;do&nbsp;arquivo&nbsp;compactado<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;offset;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;posi&ccedil;&atilde;o&nbsp;do&nbsp;arquivo<br>
+};<br>
+<br>
+struct&nbsp;FILE_ITEM_DATA<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;char*&nbsp;data;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;file&nbsp;data<br>
+};<br>
+<br>
+ERROR_TYPE&nbsp;DLL_EXPORT&nbsp;loadFile(char*&nbsp;filename,&nbsp;FILE_HEADER*&nbsp;header,&nbsp;FILE_ITEM_HEADER***&nbsp;item_header,<br>
+FILE_ITEM_DATA***&nbsp;item_data,&nbsp;int*&nbsp;item_header_len,&nbsp;int*&nbsp;item_data_len);<br>
+<br>
+ERROR_TYPE&nbsp;DLL_EXPORT&nbsp;extractFile(char*&nbsp;filename,&nbsp;FILE_HEADER*&nbsp;header,&nbsp;FILE_ITEM_HEADER**&nbsp;item_header,<br>
+FILE_ITEM_DATA**&nbsp;item_data,&nbsp;char**&nbsp;dstBuffer,&nbsp;unsigned&nbsp;int*&nbsp;dstLen);<br>
+</font></td></tr></table></center><br>
+<br>
+Aqui vai um programa de teste para a biblioteca usando SDL:<br>
+<br>
+<center><table width='90%' cellspacing='0' cellpadding='0' bgcolor='#EEEEEE'><tr><td><font face='arial' color='#000000' size='1'>
+#include&nbsp;&quot;sdl.h&quot;<br>
+#include&nbsp;&quot;schpck.h&quot;<br>
+<br>
+FILE_HEADER&nbsp;header;<br>
+FILE_ITEM_HEADER**&nbsp;item_header&nbsp;=&nbsp;0;<br>
+FILE_ITEM_DATA**&nbsp;item_data&nbsp;=&nbsp;0;<br>
+<br>
+int&nbsp;item_header_len;<br>
+int&nbsp;item_data_len;<br>
+<br>
+char&nbsp;filename_1[10]&nbsp;=&nbsp;&quot;teste.sch&quot;;<br>
+char&nbsp;filename_2[7]&nbsp;=&nbsp;&quot;cb.bmp&quot;;<br>
+char*&nbsp;dstBuffer&nbsp;=&nbsp;0;<br>
+unsigned&nbsp;int&nbsp;dstLen;<br>
+<br>
+int&nbsp;main&nbsp;(&nbsp;int&nbsp;argc,&nbsp;char**&nbsp;argv&nbsp;)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;initialize&nbsp;SDL&nbsp;video<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(&nbsp;SDL_Init(&nbsp;SDL_INIT_VIDEO&nbsp;)&nbsp;&lt;&nbsp;0&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf(&nbsp;&quot;Unable&nbsp;to&nbsp;init&nbsp;SDL:&nbsp;%s\n&quot;,&nbsp;SDL_GetError()&nbsp;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;make&nbsp;sure&nbsp;SDL&nbsp;cleans&nbsp;up&nbsp;before&nbsp;exit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;atexit(SDL_Quit);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;create&nbsp;a&nbsp;new&nbsp;window<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SDL_Surface*&nbsp;screen&nbsp;=&nbsp;SDL_SetVideoMode(640,&nbsp;480,&nbsp;16,&nbsp;SDL_HWSURFACE|SDL_DOUBLEBUF);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(&nbsp;!screen&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf(&quot;Unable&nbsp;to&nbsp;set&nbsp;640x480&nbsp;video:&nbsp;%s\n&quot;,&nbsp;SDL_GetError());<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;carrega&nbsp;o&nbsp;arquivo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;loadFile((char*)&nbsp;&filename_1,&nbsp;&header,&nbsp;&item_header,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&item_data,&nbsp;&item_header_len,&nbsp;&item_data_len);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;extractFile((char*)&nbsp;&filename_2,&nbsp;&header,&nbsp;item_header,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;item_data,&nbsp;&dstBuffer,&nbsp;&dstLen);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SDL_RWops*&nbsp;rwops;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;rwops&nbsp;=&nbsp;SDL_RWFromMem(dstBuffer,&nbsp;(int)&nbsp;dstLen);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;load&nbsp;an&nbsp;image<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SDL_Surface*&nbsp;bmp&nbsp;=&nbsp;SDL_LoadBMP_RW(rwops,&nbsp;0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!bmp)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf(&quot;Unable&nbsp;to&nbsp;load&nbsp;bitmap:&nbsp;%s\n&quot;,&nbsp;SDL_GetError());<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;centre&nbsp;the&nbsp;bitmap&nbsp;on&nbsp;screen<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SDL_Rect&nbsp;dstrect;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dstrect.x&nbsp;=&nbsp;(screen-&gt;w&nbsp;-&nbsp;bmp-&gt;w)&nbsp;/&nbsp;2;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dstrect.y&nbsp;=&nbsp;(screen-&gt;h&nbsp;-&nbsp;bmp-&gt;h)&nbsp;/&nbsp;2;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;program&nbsp;main&nbsp;loop<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bool&nbsp;done&nbsp;=&nbsp;false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(!done)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;message&nbsp;processing&nbsp;loop<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SDL_Event&nbsp;event;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(SDL_PollEvent(&event))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;check&nbsp;for&nbsp;messages<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;switch&nbsp;(event.type)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;exit&nbsp;if&nbsp;the&nbsp;window&nbsp;is&nbsp;closed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;SDL_QUIT:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;done&nbsp;=&nbsp;true;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;check&nbsp;for&nbsp;keypresses<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;SDL_KEYDOWN:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;exit&nbsp;if&nbsp;ESCAPE&nbsp;is&nbsp;pressed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(event.key.keysym.sym&nbsp;==&nbsp;SDLK_ESCAPE)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;done&nbsp;=&nbsp;true;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;//&nbsp;end&nbsp;switch<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;//&nbsp;end&nbsp;of&nbsp;message&nbsp;processing<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;DRAWING&nbsp;STARTS&nbsp;HERE<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;clear&nbsp;screen<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SDL_FillRect(screen,&nbsp;0,&nbsp;SDL_MapRGB(screen-&gt;format,&nbsp;0,&nbsp;0,&nbsp;0));<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;draw&nbsp;bitmap<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SDL_BlitSurface(bmp,&nbsp;0,&nbsp;screen,&nbsp;&dstrect);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;DRAWING&nbsp;ENDS&nbsp;HERE<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;finally,&nbsp;update&nbsp;the&nbsp;screen&nbsp;:)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SDL_Flip(screen);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;//&nbsp;end&nbsp;main&nbsp;loop<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;free&nbsp;loaded&nbsp;bitmap<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SDL_FreeSurface(bmp);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;all&nbsp;is&nbsp;well&nbsp;;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;printf(&quot;Exited&nbsp;cleanly\n&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;0;<br>
+}<br>
+</font></td></tr></table></center><br>
+<br>
+Lembrando que voc&ecirc; deve colocar o seguinte arquivo no mesmo diret&oacute;rio do seu programa:<br>
+<br>
+<a href='http://www.brunoschifer.blog.br/schifers/files/teste.sch'>Pacote de Teste</a> - Clique com o bot&atilde;o direito e selecione &quot;Salvar destino como...&quot;<br>
+<br>
+Qualquer d&uacute;vida entre em contato, eu pretendo detalhar mais esse tutorial depois.<br>
+<br>
+Pe&ccedil;o paci&ecirc;ncia e qualquer d&uacute;vida: <a href='mailto:schifers@hotmail.com'>schifers@hotmail.com</a>.<br>
+<br>

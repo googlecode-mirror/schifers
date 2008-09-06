@@ -1,0 +1,9 @@
+Aluno: Carlos (Neowolfer)
+
+Fazer um remake do jogo Snake, ou seja, o famoso jogo da cobrinha. Esse jogo terá uma série de recursos avançados ensinados durante o curso como: tilemaps, editor de mapas, controle de frames por segundo, fontes ttf, efeitos sonoros, etc.
+
+
+Aluno: Luckinhas
+
+Fazer um remake do jogo Pacman também com uma série de  recursos ensinados durante o curso, como: tilemaps, animações 2d baseadas em frames, efeitos sonoros, editor de mapas, fontes ttf, AI básica, etc.
+

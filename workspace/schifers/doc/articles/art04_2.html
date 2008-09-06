@@ -1,0 +1,94 @@
+A primeira coisa que devemos fazer agora &eacute; o download da biblioteca SDL.<br>
+<br>
+Clique no link abaixo e fa&ccedil;a o download do arquivo:<br>
+<br>
+<a href='http://www.libsdl.org/release/SDL-devel-1.2.13-mingw32.tar.gz'>http://www.libsdl.org/release/SDL-devel-1.2.13-mingw32.tar.gz</a>
+<br>
+De posse do arquivo, descompacte-o no seu local preferido e mantenha a estrutura de diret&oacute;rios padr&atilde;o da SDL. No local que voc&ecirc; selecionou, provavelmente ser&aacute; criado um diret&oacute;rio com o nome de SDL-1.2.13. Nesse diret&oacute;rio ficar&atilde;o todos os arquivos da biblioteca que precisaremos para nossos jogos.<br>
+<br>
+Abra o CodeBlocks e selecione a op&ccedil;&atilde;o File > New > Project... e essa tela aparecer&aacute; para voc&ecirc;:<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig11.gif' border='0'>
+</center>
+<br>
+Essa tela mostra a rela&ccedil;&atilde;o de templates pr&eacute;-definidos para o CodeBlocks. Inclusive j&aacute; existe um template para um projeto que use SDL, por&eacute;m eu vou ensinar como configurar em projeto sem usar o template. Selecione, portanto, o &iacute;cone Empy Project e clique em Go.<br>
+<br>
+A tela do wizard de cria&ccedil;&atilde;o de um projeto vazio ir&aacute; aparecer:<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig12.gif' border='0'>
+</center>
+<br>
+Voc&ecirc; pode dizer para o wizard pular essa tela de boas vindas da pr&oacute;xima vez que execut&aacute;-lo dando um click no checkbox que est&aacute; pr&oacute;ximo ao centro da sua tela, por&eacute;m eu vou apenas continuar com a configura&ccedil;&atilde;o clicando em Next.<br>
+<br>
+A tela para preenchimento das op&ccedil;&otilde;es do seu novo projeto ir&aacute; aparecer:<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig13.gif' border='0'>
+</center>
+<br>
+Preencha o nome do projeto &quot;Tutorial&quot;. Escolha a pasta aonde voc&ecirc; quer criar seu projeto. Eu costumo escolher uma pasta onde deixo todos os meus projetos do CodeBlocks. Lembre-se por&eacute;m que o CodeBlocks ir&aacute; criar uma nova pasta para o seu projeto dentro da j&aacute; selecionada.<br>
+<br>
+Com essas informa&ccedil;&otilde;es preenchidas, clique em next.<br>
+<br>
+Aparecer&aacute; a tela com as op&ccedil;&otilde;es de compila&ccedil;&atilde;o do seu projeto. Normalmente, o CodeBlocks j&aacute; traz o compilador MingW32 como padr&atilde;o. Se esse for o caso, deixe as op&ccedil;&otilde;es da forma que est&atilde;o de acordo com a tela abaixo:<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig14.gif' border='0'>
+</center>
+<br>
+Clique em Finish e o projeto ser&aacute; criado para voc&ecirc;.<br>
+<br>
+A seguinte tela ir&aacute; aparecer com o nome do projeto na janela &quot;Management&quot; &agrave; esquerda da sua tela:<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig15.gif' border='0'>
+</center>
+<br>
+Com o nosso projeto criado, vamos come&ccedil;ar a configurar ele.<br>
+<br>
+Clique com o bot&atilde;o direito no nome do seu projeto na janela &quot;Management&quot; &agrave; esquerda. Escolha a op&ccedil;&atilde;o &quot;properties&quot; do menu pop up que ir&aacute; aparecer. Ela costuma ser a &uacute;ltima op&ccedil;&atilde;o do menu. A seguinte tela ir&aacute; aparecer para voc&ecirc;:<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig16.gif' border='0'>
+</center>
+<br>
+Nessa tela, pressione o bot&atilde;o &quot;Project's build options&quot;. A tela abaixo ir&aacute; aparecer:<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig17.gif' border='0'>
+</center>
+<br>
+Nessa tela, v&aacute; para a aba &quot;Linker settings&quot; e adicione os seguintes par&acirc;metros no campo &quot;Other linker options&quot;:<br>
+<br>
+-lmingw32 -lSDLMain -lSDL -mwindows<br>
+<br>
+Observe a tela abaixo:<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig18.gif' border='0'>
+</center>
+<br>
+Esses par&acirc;metros falam para o linker ligar as bibliotecas padr&otilde;es do compilador MingW32 e a biblioteca SDL.<br>
+<br>
+O par&acirc;metro -mwindows faz com que a tela de console que costuma abrir junto com um programa SDL n&atilde;o seja aberta.<br>
+<br>
+Em seguida, v&aacute; para a aba &quot;Search directories&quot; e adicione o diret&oacute;rio &quot;include&quot; da biblioteca SDL na aba &quot;Compiler&quot;:<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig19.gif' border='0'>
+</center>
+<br>
+Em seguida, v&aacute; para aba &quot;Linker&quot; ainda dentro da aba &quot;Search Directories&quot; e adicione o diret&oacute;rio &quot;lib&quot; da biblioteca SDL:<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig20.gif' border='0'>
+</center>
+<br>
+Pressione o bot&atilde;o OK e pronto, seu projeto est&aacute; configurado para utilizar a SDL.<br>
+<br>
+O pr&oacute;ximo passo &eacute; aprender a iniciar uma janela com SDL.<br>
+<br>
+Isso &eacute; assunto para um pr&oacute;ximo tutorial. At&eacute; l&aacute;!<br>
+<br>

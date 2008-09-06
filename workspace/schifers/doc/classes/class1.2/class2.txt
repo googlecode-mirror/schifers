@@ -1,0 +1,131 @@
+Na segunda parte da primeira aula, estaremos vendo como inicializar uma aplicação SDL e estaremos vendo as principais funções da SDL utilizadas na inicialização da biblioteca. Estaremos modificando somente a nossa classe SdlApplication.
+
+A organização das classes ainda não será modificada aqui. Não estaremos incluindo nenhuma classe nova ainda. Portanto o diagrama de classes da Aula1 ainda está valendo para essa segunda aula:
+
+<center>
+<img src='/schifers/images/class01.2/fig01.jpg' border='0'>
+</center>
+
+Os arquivos que estaremos trabalhando são os seguintes:
+
+- SdlApplication.h
+- SdlApplication.cpp
+
+Faça o download dos cinco arquivos do projeto completo no link abaixo:
+
+<a href='/schifers/files/Aula1.2.zip'>Aula 1.2</a>
+
+
+Nessa segunda aula, iremos incluir dois atributos na classe SdlApplication: pScreen e pEvent.
+
+Esses atributos são ponteiros para duas estruturas do tipo SDL_Surface e SDL_Event. Essas estruturas são nativas da SDL e uma delas é responsável por armazenar as informações das suas imagens e a outra é responsável por armazenar as informações dos seus eventos.
+
+Segue abaixo o link para a documentação da SDL com informações sobre as duas estruturas:
+
+<a href='http://www.libsdl.org/cgi/docwiki.cgi/SDL_Surface'>SDL_Surface</a> - <a href='http://www.libsdl.org/cgi/docwiki.cgi/SDL_Event'>SDL_Event</a>
+
+
+Leia a documentação acima para mais informações sobre essas duas estruturas.
+
+Em seguida, nós alteramos o método run() da classe SdlApplication.
+
+A primeira coisa que fizemos foi acrescentar as seguintes linhas no código:
+
+<code>
+putenv("SDL_VIDEO_WINDOW_POS");
+putenv("SDL_VIDEO_CENTERED=1");
+</code>
+
+A documentação para essa função putenv pode ser encontrada nesse link abaixo:
+
+<a href='http://homepages.cwi.nl/~aeb/linux/man2html/man3/putenv.3.html'>putenv()</a>
+
+
+Essa função tem como objetivo setar duas variáveis de ambiente que serão utilizadas pela SDL para centralizar a janela do jogo na tela do sistema operacional.
+
+Em seguida, nós chamamos a função SDL_Init da própria SDL.
+
+<code>
+if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
+{
+	exit(1);
+}
+</code>
+
+Essa função serve para inicializar os subsistemas que estaremos utilizando no nosso programa, por exemplo: vídeo, som, joystick, etc.
+
+Dê uma olhada na documentação para poder entender melhor o funcionamento da função SDL_Init.
+
+A documentação da mesma está no link abaixo:
+
+<a href='http://www.libsdl.org/cgi/docwiki.cgi/SDL_Init'>SDL_Init</a>
+
+
+A próxima função chamada é a SDL_WM_SetCaption:
+
+<code>
+SDL_WM_SetCaption("Teste", "Teste");
+</code>
+
+Essa função seta o nome da nossa janela SDL e o nome do ícone da janela. Documentação:
+
+<a href='http://www.libsdl.org/cgi/docwiki.cgi/SDL_WM_SetCaption'>SDL_WM_SetCaption</a>
+
+
+Em seguida, fazemos uma chamada à função SDL_SetVideoMode:
+
+<code>
+this->pScreen = SDL_SetVideoMode( 800, 600, 0, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_HWACCEL );
+</code>
+
+Essa função inicializa a nossa tela da SDL. Ela retorna uma estrutura SDL_Surface preenchida. Essa tela possuirá o tamanho e resolução passados como parâmetros para a função. O retorno dessa chamada será armazenado no atributo pScreen que declaramos na nossa classe SdlApplication.
+
+<a href='http://www.libsdl.org/cgi/docwiki.cgi/SDL_SetVideoMode'>SDL_SetVideoMode</a>
+
+
+Agora, o código entra no loop principal do jogo e, nesse loop, devemos começar a tratar nossos eventos. Portanto, a próxima função chamada é a SDL_PollEvent. Essa função retira um evento da fila de eventos da SDL e armazena no atributo que incluímos na classe SdlApplication pEvent:
+
+<code>
+if(SDL_PollEvent(this->pEvent))
+</code>
+
+A documentação da função:
+
+<a href='http://www.libsdl.org/cgi/docwiki.cgi/SDL_PollEvent'>SDL_PollEvent</a>
+
+
+Em seguida, temos o tratamento de eventos específicos da SDL. Para maiores informações dos tipos de evento acesse o link abaixo:
+
+<a href='http://userpage.fu-berlin.de/~molski/fpsdl/seiten/kapitel/kap6_j.html'>Tipos de evento da SDL</a>
+
+
+Caso ocorra um evento de tecla de teclado, ou seja, SDL_KEYDOWN, iremos criar um evento SDL_Quit e vamos colocá-lo na fila de eventos da SDL com a função SDL_PushEvent. Observe o trecho do código que faz isso:
+
+<code>
+if(this->pEvent->type == SDL_KEYDOWN)
+{
+	if(this->pEvent->key.keysym.sym == SDLK_ESCAPE)
+	{
+		SDL_Event quit;
+		quit.type = SDL_QUIT;
+		SDL_PushEvent(&quit);
+	}
+}
+</code>
+
+A documentação da função:
+
+<a href='http://www.libsdl.org/cgi/docwiki.cgi/SDL_PushEvent'>SDL_PushEvent</a>
+
+
+Por último, temos uma chamada para a função SDL_Quit que libera a memória alocada para os subsistemas da SDL. Documentação:
+
+<a href='http://www.libsdl.org/cgi/docwiki.cgi/SDL_Quit'>SDL_Quit</a>
+
+
+Com isso implementamos o nosso método run e já podemos executar o código.
+
+Nesse ponto, teremos uma janela da SDL preta pronta para receber nossas imagens do jogo.
+
+Na próxima aula, iremos trabalhar um pouco mais a independência de plataforma do código. Criaremos uma classe para utilização das superfícies da SDL.
+

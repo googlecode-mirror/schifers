@@ -1,0 +1,263 @@
+Nessa aula, ser&aacute; criado um mecanismo de gera&ccedil;&atilde;o de mensagens pr&oacute;prio da engine e tamb&eacute;m ser&aacute; criado um wrapper para as surfaces da SDL.<br>
+<br>
+Fa&ccedil;a o download do arquivo correspondente no link abaixo:<br>
+<br>
+<a href='/schifers/files/Aula2.zip'>Aula 2</a>
+<br>
+<br>
+Tr&ecirc;s novas classes ser&atilde;o acrescentadas ao modelo:<br>
+<br>
+- Input<br>
+- Message<br>
+- Surface<br>
+<br>
+A classe Input ser&aacute; a respons&aacute;vel por controlar a fila de mensagens da engine. Ela receber&aacute; as mensagens da SDL e ir&aacute; enfileir&aacute;-las para processamento posterior.<br>
+<br>
+A classe Message &eacute; a classe respons&aacute;vel por armazenar o conte&uacute;do dessas mensagens. Ela possui o mesmo formato das mensagens que o Windows gera. Ela foi criada dessa forma para que a portabilidade da engine para DirectX seja facilitada.<br>
+<br>
+A classe Surface &eacute; um wrapper para a estrutura SDL_Surface da SDL. Esse wrapper foi criado para que no futuro, caso o jogo necessite ser portado para DirectX, n&atilde;o seja necess&aacute;rio mudar nada na programa&ccedil;&atilde;o do jogo em si. Somente ser&aacute; necess&aacute;rio mudar essa classe para a nova forma de carregar imagens do DirectX.<br>
+<br>
+O diagrama de classes fica assim:<br>
+<br>
+<center>
+<img src='/schifers/images/class02/fig01.jpg' border='0'>
+</center>
+<br>
+A primeira das novas classes que ser&aacute; mostrada &eacute; a classe Message. Observe como funciona o mecanismo de tratamento de mensagens na API do Windows para que entenda o porqu&ecirc; dessa classe ter sido constru&iacute;da com esses par&acirc;metros.<br>
+<br>
+<center><table width='90%' cellspacing='0' cellpadding='0' bgcolor='#EEEEEE'><tr><td><font face='arial' color='#000000' size='1'>
+LRESULT&nbsp;CALLBACK&nbsp;WndProc(HWND&nbsp;hwnd,&nbsp;UINT&nbsp;msg,&nbsp;WPARAM&nbsp;wParam,&nbsp;LPARAM&nbsp;lParam)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;switch(msg)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;WM_CLOSE:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DestroyWindow(hwnd);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;WM_DESTROY:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PostQuitMessage(0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;DefWindowProc(hwnd,&nbsp;msg,&nbsp;wParam,&nbsp;lParam);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;0;<br>
+}<br>
+</font></td></tr></table></center><br>
+<br>
+A fun&ccedil;&atilde;o acima &eacute; uma fun&ccedil;&atilde;o de tratamento de mensagens utilizada por um programa Win32. Como voc&ecirc;s podem observar, a fun&ccedil;&atilde;o que processa os eventos de uma janela no Windows recebe como par&acirc;metro o handle para a janela (hwnd), recebe o tipo da mensagem (msg) e recebe ainda dois par&acirc;metros: wParam e lParam.<br>
+<br>
+HWND hwnd => trata-se de um endere&ccedil;o para a janela que recebe os eventos.<br>
+UINT msg => trata-se de uma vari&aacute;vel do tipo unsigned int, ou seja, UINT, tipo declarado na API do Windows.<br>
+WPARAM wParam => trata-se de um par&acirc;metro do tipo WPARAM, ou seja, WPARAM &eacute; um tipo declarado tamb&eacute;m na API do Windows que representa um WORD, ou seja, um unsigned int.<br>
+LPARAM lParam => trata-se de um par&acirc;metro do tipo LPARAM, ou seja, LPARAM &eacute; tamb&eacute;m declarado na API e representa um unsigned long.<br>
+<br>
+Os tipos que ser&atilde;o precisos na engine criada aqui s&atilde;o somente os dois &uacute;ltimos: WPARAM e LPARAM. Eles ser&atilde;o declarados no arquivo Global.h da seguinte forma:<br>
+<br>
+<center><table width='90%' cellspacing='0' cellpadding='0' bgcolor='#EEEEEE'><tr><td><font face='arial' color='#000000' size='1'>
+typedef&nbsp;unsigned&nbsp;int&nbsp;&nbsp;&nbsp;&nbsp;WPARAM;<br>
+typedef&nbsp;unsigned&nbsp;long&nbsp;&nbsp;&nbsp;LPARAM;<br>
+</font></td></tr></table></center><br>
+<br>
+Al&eacute;m desses dois atributos, a classe Message ainda ter&aacute; o tipo da mensagem, no caso da engine ser&aacute; um int e tamb&eacute;m um ponteiro void* para os dados que possam ser encaminhados nessa mensagem.<br>
+<br>
+Quanto &agrave;s opera&ccedil;&otilde;es dessa classe, basicamente, s&atilde;o m&eacute;todos de acesso aos atributos encapsulados dentro dela. Esses m&eacute;todos recebem o nome de getters e setters pois eles servem somente para buscar o valor do atributo e preencher o atributo com um valor passado.<br>
+<br>
+A pr&oacute;xima classe a ser apresentada &eacute; a classe Input. Essa classe faz uso da STL, ou seja, Standard Template Library do C++. Para ter uma id&eacute;ia melhor do que se trata a STL d&ecirc; uma lida no link abaixo:<br>
+<br>
+<a href='http://en.wikipedia.org/wiki/Standard_Template_Library'>Wikipedia - Standard Template Library - STL</a>
+<br>
+<br>
+O &uacute;nico atributo dessa classe &eacute; um fila de dupla entrada (deque, double ended queue) que &eacute; respons&aacute;vel por armazenar a fila de mensagens recebidas atrav&eacute;s dos eventos que ocorrem na SDL. Esse tipo de estrutura est&aacute; implementada na STL. Para uma vis&atilde;o mais aprofundada dessa estrutura de dados d&ecirc; uma lida no link abaixo:<br>
+<br>
+<a href='http://en.wikipedia.org/wiki/Deque'>Double Ended Queue (deque)</a>
+<br>
+<br>
+Basicamente, a fila de dupla entrada enfileira as mensagens que v&atilde;o chegando uma ap&oacute;s a outra. O processamento das mensagens &eacute; feita na ordem da chegada delas, ou seja, as primeiras que chegam s&atilde;o as primeiras que s&atilde;o processadas. Esse m&eacute;todo possui uma abrevia&ccedil;&atilde;o na teoria: FIFO, &quot;first in first out&quot;. Existe uma outra estrutura de dados que usa o m&eacute;todo LIFO, &quot;last in first out&quot; e &eacute; a estrutura com o nome de pilha. Na pilha, temos os objetos empilhados e os primeiros a serem processados s&atilde;o aqueles que se encontram no topo da pilha.<br>
+<br>
+Voltando a fila de mensagens. Basicamente, ela deve possuir duas opera&ccedil;&otilde;es: a de colocar mensagens na fila e a de tirar a primeira mensagem da fila. Como essas opera&ccedil;&otilde;es j&aacute; est&atilde;o implementadas pela STL, n&atilde;o precisamos nos preocupar com a l&oacute;gica dela e sim somente criar opera&ccedil;&otilde;es de acesso a elas na nossa classe Input.<br>
+<br>
+A classe Input possui as duas opera&ccedil;&otilde;es: GetDeque() que retorna a refer&ecirc;ncia a fila de mensagens, permitindo que o programa use as opera&ccedil;&otilde;es j&aacute; implementadas pela STL e o m&eacute;todo PopMessage() que retorna uma refer&ecirc;ncia para um objeto do tipo Message.<br>
+<br>
+Com essas opera&ccedil;&otilde;es, a engine &eacute; capaz de utilizar a fila de mensagens e fazer o processamento de cada uma delas.<br>
+<br>
+Por &uacute;ltimo, a classe Surface ser&aacute; apresentada. Essa classe, como foi dito, &eacute; uma classe utilizada para armazenar as imagens da engine. Uma imagem possui os seguintes atributos:<br>
+<br>
+iWidth => largura em pixels da imagem<br>
+iHeight => altura em pixels da imagem<br>
+iX => posi&ccedil;&atilde;o X aonde a imagem ser&aacute; desenhada<br>
+iY => posi&ccedil;&atilde;o Y aonde a imagem ser&aacute; desenhada<br>
+<br>
+Al&eacute;m desses atributos, ainda existe uma refer&ecirc;ncia necess&aacute;ria para a estrutura SDL_Surface da SDL que representa imagem.<br>
+<br>
+Todos esses atributos possuem seus getters and setters:<br>
+<br>
+<center><table width='90%' cellspacing='0' cellpadding='0' bgcolor='#EEEEEE'><tr><td><font face='arial' color='#000000' size='1'>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;GetWidth();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;void&nbsp;SetWidth(int&nbsp;w);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;GetHeight();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;void&nbsp;SetHeight(int&nbsp;h);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;GetX();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;void&nbsp;SetX(int&nbsp;x);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;GetY();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;void&nbsp;SetY(int&nbsp;y);<br>
+</font></td></tr></table></center><br>
+<br>
+Al&eacute;m dos getters and setters desses atributos, os outros m&eacute;todos da classe s&atilde;o:<br>
+<br>
+- GetSurface(): que retorna uma refer&ecirc;ncia para a SDL_Surface da imagem<br>
+- LoadFromFile(): que carrega a SDL_Surface a partir de um arquivo em disco, ela recebe o nome do arquivo como par&acirc;metro<br>
+- Blit(): respons&aacute;vel por desenhar a imagem na tela, recebe a tela como par&acirc;metro<br>
+- SetTransparent(): transforma a cor rosa pura (255, 0, 255) em transparente<br>
+- FreeSurface(): libera a mem&oacute;ria alocada para a SDL_Surface<br>
+<br>
+Pronto, com essa estrutura de classes &eacute; poss&iacute;vel modificar o recebimento de mensagens e incluir uma imagem na janela principal do programa.<br>
+<br>
+O loop principal do jogo no arquivo SdlApplication.cpp, no m&eacute;todo Run(), teve que ser alterado:<br>
+<br>
+<center><table width='90%' cellspacing='0' cellpadding='0' bgcolor='#EEEEEE'><tr><td><font face='arial' color='#000000' size='1'>
+&nbsp;&nbsp;&nbsp;&nbsp;this-&gt;pInput&nbsp;=&nbsp;new&nbsp;Input();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Game&nbsp;initialization<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this-&gt;Start();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Main&nbsp;Loop<br>
+&nbsp;&nbsp;&nbsp;&nbsp;while(true)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this-&gt;GenerateInput();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SDL_FillRect(this-&gt;pScreen,&nbsp;NULL,&nbsp;SDL_MapRGB(&nbsp;this-&gt;pScreen-&gt;format,&nbsp;0,&nbsp;0,&nbsp;0));<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(!this-&gt;Loop())<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SDL_UpdateRect(this-&gt;pScreen,&nbsp;0,&nbsp;0,&nbsp;0,&nbsp;0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Game&nbsp;finalization<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this-&gt;End();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;delete&nbsp;this-&gt;pInput;<br>
+</font></td></tr></table></center><br>
+<br>
+Como voc&ecirc;s podem observar, no in&iacute;cio do loop, foi necess&aacute;rio instanciar a classe Input e assim que o loop for encerrado, a mem&oacute;ria alocada estar&aacute; sendo liberada com o comando delete.<br>
+<br>
+Dentro do loop, o primeiro m&eacute;todo chamado agora &eacute; o GenerateInput(). Esse m&eacute;todo ser&aacute; respons&aacute;vel por enfileirar as mensagens criadas pelos eventos que a SDL recebe. A implementa&ccedil;&atilde;o dele est&aacute; logo abaixo:<br>
+<br>
+<center><table width='90%' cellspacing='0' cellpadding='0' bgcolor='#EEEEEE'><tr><td><font face='arial' color='#000000' size='1'>
+void&nbsp;SdlApplication::GenerateInput()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;while(SDL_PollEvent(this-&gt;pEvent))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(this-&gt;pEvent-&gt;type&nbsp;==&nbsp;SDL_QUIT)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this-&gt;pMessage&nbsp;=&nbsp;new&nbsp;Message();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this-&gt;pMessage-&gt;SetType(MSG_EXIT);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this-&gt;pInput-&gt;GetDeque()-&gt;push_back(this-&gt;pMessage);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(this-&gt;pEvent-&gt;type&nbsp;==&nbsp;SDL_KEYDOWN)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(this-&gt;pEvent-&gt;key.keysym.sym&nbsp;==&nbsp;SDLK_ESCAPE)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SDL_Event&nbsp;quit;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;quit.type&nbsp;=&nbsp;SDL_QUIT;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SDL_PushEvent(&quit);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+</font></td></tr></table></center><br>
+<br>
+Com esse m&eacute;todo, n&atilde;o ser&aacute; necess&aacute;rio utilizar tipos espec&iacute;ficos da SDL no c&oacute;digo do jogo em si. Essa parte de gera&ccedil;&atilde;o de mensagens fica isolada do arquivo Main.cpp, portanto, se o jogo tiver que ser portado para DirectX, s&oacute; ser&aacute; necess&aacute;rio alterar o c&oacute;digo da SdlApplication, incluindo a parte de gera&ccedil;&atilde;o de mensagens (m&eacute;todo GenerateInput).<br>
+<br>
+Em seguida existe uma chamada para a fun&ccedil;&atilde;o SDL_FillRect(). Ela preenche toda a tela (SDL_Surface) com a cor que for passada como par&acirc;metro. Nesse caso aqui voc&ecirc;s podem observar que foi passada a cor preta: RGB (0, 0, 0).<br>
+<br>
+<center><table width='90%' cellspacing='0' cellpadding='0' bgcolor='#EEEEEE'><tr><td><font face='arial' color='#000000' size='1'>
+SDL_FillRect(this-&gt;pScreen,&nbsp;NULL,&nbsp;SDL_MapRGB(&nbsp;this-&gt;pScreen-&gt;format,&nbsp;0,&nbsp;0,&nbsp;0));<br>
+</font></td></tr></table></center><br>
+<br>
+A fun&ccedil;&atilde;o acima preenche toda a tela com a cor preta, pois quando o segundo par&acirc;metro &eacute; passado como nulo, a SDL preenche toda a superf&iacute;cie passada no primeiro par&acirc;metro com a cor passada no terceiro par&acirc;metro. Caso n&atilde;o se queira preencher a superf&iacute;cie inteira, deve-se passar uma estrutura SDL_Rect preenchida no segundo par&acirc;metro.<br>
+<br>
+Ainda existe uma chamada &agrave; fun&ccedil;&atilde;o SDL_MapRGB na chamada da SDL_FillRect.<br>
+<br>
+<a href='http://www.libsdl.org/cgi/docwiki.cgi/SDL_MapRGB'>SDL_MapRGB</a>
+<br>
+<br>
+Essa fun&ccedil;&atilde;o mapeia uma cor para o formato da superf&iacute;cie utilizada.<br>
+<br>
+Temos finalmente, logo ap&oacute;s a chamada ao m&eacute;todo Loop(), uma chamada &agrave; fun&ccedil;&atilde;o SDL_Flip.<br>
+<br>
+<a href='http://www.libsdl.org/cgi/docwiki.cgi/SDL_Flip'>SDL_Flip</a>
+<br>
+<br>
+Essa fun&ccedil;&atilde;o faz a troca dos buffers entre o que est&aacute; em mem&oacute;ria e o que est&aacute; na tela, fazendo com que a tela seja atualizada. Para que essa fun&ccedil;&atilde;o fa&ccedil;a o flipping na placa de v&iacute;deo &eacute; necess&aacute;rio que na chamada da SDL_SetVideoMode seja passado os par&acirc;metros SDL_HWSURFACE e SDL_DOUBLEBUF.<br>
+<br>
+Explicadas as altera&ccedil;&otilde;es que foram feitas no m&eacute;todo Run() da SdlApplication, deve-se entender as mudan&ccedil;as na implementa&ccedil;&atilde;o dos m&eacute;todos Start(), Loop() e End() para que a imagem aparecesse na tela.<br>
+<br>
+A primeira mudan&ccedil;a, foi instanciar na classe Game uma superf&iacute;cie para a imagem. Portanto, ao observar o arquivo Main.h voc&ecirc; pode notar as seguintes linhas:<br>
+<br>
+<center><table width='90%' cellspacing='0' cellpadding='0' bgcolor='#EEEEEE'><tr><td><font face='arial' color='#000000' size='1'>
+&nbsp;&nbsp;&nbsp;&nbsp;private:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Surface*&nbsp;pImage;<br>
+</font></td></tr></table></center><br>
+<br>
+Portanto, voc&ecirc; pode observar que foi acrescentado um atributo privado do tipo Surface que &eacute; um endere&ccedil;o de uma &aacute;rea em mem&oacute;ria, pois trata-se de um ponteiro.<br>
+<br>
+Observe o novo m&eacute;todo Start():<br>
+<br>
+<center><table width='90%' cellspacing='0' cellpadding='0' bgcolor='#EEEEEE'><tr><td><font face='arial' color='#000000' size='1'>
+void&nbsp;Game::Start()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this-&gt;pImage&nbsp;=&nbsp;new&nbsp;Surface();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this-&gt;pImage-&gt;LoadFromFile(&quot;natal.bmp&quot;);<br>
+}<br>
+</font></td></tr></table></center><br>
+<br>
+Nesse m&eacute;todo, nota-se a inicializa&ccedil;&atilde;o da superf&iacute;cie da imagem e o carregamento do arquivo f&iacute;sico para a estrutura SDL_Surface dentro do objeto que o ponteiro pImage aponta.<br>
+<br>
+Em seguida, observe o m&eacute;todo End():<br>
+<br>
+<center><table width='90%' cellspacing='0' cellpadding='0' bgcolor='#EEEEEE'><tr><td><font face='arial' color='#000000' size='1'>
+void&nbsp;Game::End()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this-&gt;pImage-&gt;FreeSurface();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;delete&nbsp;this-&gt;pImage;<br>
+}<br>
+</font></td></tr></table></center><br>
+<br>
+Ap&oacute;s a utiliza&ccedil;&atilde;o da imagem, o m&eacute;todo End() libera a superf&iacute;cie da SDL que est&aacute; dentro do objeto pImage do tipo Surface e o m&eacute;todo ainda libera o pr&oacute;prio objeto pImage chamando o comando delete.<br>
+<br>
+Por &uacute;ltimo, veja o m&eacute;todo Loop():<br>
+<br>
+<center><table width='90%' cellspacing='0' cellpadding='0' bgcolor='#EEEEEE'><tr><td><font face='arial' color='#000000' size='1'>
+bool&nbsp;Game::Loop()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Message*&nbsp;msg&nbsp;=&nbsp;this-&gt;pInput-&gt;PopMessage();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;while(msg)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(msg-&gt;GetType()&nbsp;==&nbsp;MSG_EXIT)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msg&nbsp;=&nbsp;this-&gt;pInput-&gt;PopMessage();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this-&gt;pImage-&gt;Blit(this-&gt;pScreen);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;true;<br>
+}<br>
+</font></td></tr></table></center><br>
+<br>
+O m&eacute;todo Loop() come&ccedil;a tratando todas as mensagens que ele encontra dentro da fila de mensagens da engine que est&aacute; sendo criada. A &uacute;nica mensagem que est&aacute; programada no momento, &eacute; a MSG_EXIT, ou seja, a que faz o loop terminar caso ocorra uma mensagem de sa&iacute;da.<br>
+<br>
+Em seguida, o m&eacute;todo chama a opera&ccedil;&atilde;o de desenho em tela do objeto pImage passando a tela pScreen que tamb&eacute;m &eacute; uma superf&iacute;cie da nossa engine.<br>
+<br>
+Caso o m&eacute;todo retorne true, ele continua executando o jogo sem sair do loop. Caso contr&aacute;rio, o jogo recebe false e o loop termina chegando no comando break.<br>
+<br>
+Com isso terminamos mais uma aula. Na pr&oacute;xima iremos trabalhar um pouco mais dos fundamentos para come&ccedil;ar a programar um jogo.<br>
+<br>

@@ -1,0 +1,11 @@
+O projeto SPS, ou seja, Schifer Packing System, é um sistema de empacotamento de arquivos criado para armazenar os recursos de um jogo em um arquivo compactado, criptografado e indexado. O foco do projeto é armazenar arquivos para serem utilizados pela biblioteca SDL, embora não vá existir dependência de plataforma e nem de biblioteca. O principal objetivo é trabalhar com os arquivos até o limite da memória do computador. A comunicação entre a memória e o jogo deverá ser feita pelo programador do jogo em si, mantendo assim a independência de biblioteca gráfica.
+
+O objetivo do sistema de empacotamento é esconder os arquivos de um jogo para não serem modificados pelos seus usuários. Portanto, o conteúdo do arquivo só poderá ser acessado por quem tiver a chave de criptografia utilizada para armazenar os dados.
+
+As principais funcionalidades do sistema de empacotamento serão:
+
+- Existência de uma interface gráfica para utilização do empacotador;
+- Capacidade de usar as funções de leitura através de uma biblioteca em C++ que pode ser linkada ao seu programa;
+- Utilização dos algoritmos de compactação: pkzip, huffman, adpcm 4, zlib, e bzip2;
+- Indexação dos arquivos usando hash tables;
+- Utilização de algoritmos de criptografia para esconder os dados dos arquivos: crc32, md5, etc.

@@ -1,0 +1,113 @@
+Este artigo tem por finalidade mostrar como configurar um projeto SDL no CodeBlocks.<br>
+<br>
+O foco dos meus tutoriais, antigamente, era o Dev-C++, por&eacute;m ap&oacute;s descobrir os benef&iacute;cios que o CodeBlocks possui, eu mudei o foco. O CodeBlocks &eacute; uma ferramenta livre e est&aacute; em constante evolu&ccedil;&atilde;o. O Dev-C++ foi descontinuado e n&atilde;o h&aacute; mais raz&otilde;es para seguir utilizando essa ferramenta. Agrade&ccedil;o ao Vinigodoy da PDJ por essa informa&ccedil;&atilde;o.<br>
+<br>
+Voc&ecirc; pode baixar a &uacute;ltima vers&atilde;o do CodeBlocks para Windows com o compilador MinGW integrado no link abaixo: <br>
+<br>
+<a href='http://sourceforge.net/project/downloading.php?groupname=codeblocks&filename=codeblocks-8.02mingw-setup.exe&use_mirror=ufpr'>http://sourceforge.net/project/downloading.php?groupname=codeblocks&filename=codeblocks-8.02mingw-setup.exe&use_mirror=ufpr</a>
+<br>
+<br>
+Ap&oacute;s terminar o download do arquivo, execute e instale o programa seguindo os passos descritos neste tutorial. Eu tentei instalar no Vista uma outra vers&atilde;o do MinGW para usar com o CodeBlocks, por&eacute;m tive uma s&eacute;rie de problemas para compilar os programas. Por isso, vou recomendar que voc&ecirc; fa&ccedil;a o download do CodeBlocks j&aacute; integrado com o compilador, pois dessa forma n&atilde;o encontrar&aacute; os problemas que eu tive.<br>
+<br>
+Ao executar o programa de instala&ccedil;&atilde;o, voc&ecirc; receber&aacute; uma mensagem como a que est&aacute; abaixo: <br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig01.gif' border='0'>
+</center>
+<br>
+Essa tela mostra uma mensagem de boas vindas ao instalador do CodeBlocks e indica que o processo de instala&ccedil;&atilde;o foi iniciado. Pressione &quot;Next&quot; para continuar. <br>
+<br>
+Em seguida, aparecer&aacute; a tela com o contrato de licen&ccedil;a do CodeBlocks.<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig02.gif' border='0'>
+</center>
+<br>
+Apesar de ser uma ferramenta free, voc&ecirc; deve aceitar as condi&ccedil;&otilde;es de utiliza&ccedil;&atilde;o da ferramenta. Leia o contrato se for de seu interesse a pressione em &quot;I Agree&quot;.<br>
+<br>
+A pr&oacute;xima tela &eacute; a tela de op&ccedil;&otilde;es de instala&ccedil;&atilde;o da ferramenta. Deixe as op&ccedil;&otilde;es da forma que est&atilde;o.<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig03.gif' border='0'>
+</center>
+<br>
+Pressione o bot&atilde;o &quot;Next&quot; nessa tela.<br>
+<br>
+Em seguida aparecer&aacute; a tela de escolha do local de instala&ccedil;&atilde;o. É melhor instalar as ferramentas no local padr&atilde;o delas, assim fica f&aacute;cil encontrar seguindo os tutoriais e documentos que circulam na internet. N&atilde;o troque o local que apareceu na sua tela.<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig04.gif' border='0'>
+</center>
+<br>
+Pressione o bot&atilde;o &quot;Install&quot;.<br>
+<br>
+Ap&oacute;s selecionar o local e iniciar a instala&ccedil;&atilde;o, a seguinte tela ir&aacute; aparecer: <br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig05.gif' border='0'>
+</center>
+<br>
+Essa tela indica que o processo de instala&ccedil;&atilde;o est&aacute; em andamento. Aguarde a conclus&atilde;o da instala&ccedil;&atilde;o. <br>
+<br>
+Ap&oacute;s terminar o processo de instala&ccedil;&atilde;o, ser&aacute; perguntado se voc&ecirc; deseja executar o CodeBlocks agora.<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig06.gif' border='0'>
+</center>
+<br>
+Responda que &quot;Sim&quot;, pois temos que fazer algumas configura&ccedil;&otilde;es na ferramenta logo ap&oacute;s o processo de instala&ccedil;&atilde;o.<br>
+<br>
+Ap&oacute;s pressionar o bot&atilde;o &quot;Sim&quot;, ser&aacute; apresentada a seguinte tela mostrando os compiladores que o CodeBlocks detectou:<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig06_1.gif' border='0'>
+</center>
+<br>
+Essa informa&ccedil;&atilde;o &eacute; &uacute;til para voc&ecirc; saber quais compiladores est&atilde;o na sua m&aacute;quina e quais que poderiam ser utilizados pelo CodeBlocks. Como vamos utilizar o MinGW instalado no pacote do CodeBlocks, pressione &quot;OK&quot; e siga adiante.<br>
+<br>
+Logo em seguida, o CodeBlocks ser&aacute; executado e ser&aacute; perguntado se voc&ecirc; deseja associar os arquivos da linguagem C e C++ com o CodeBlocks.<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig07.gif' border='0'>
+</center>
+<br>
+Escolha a terceira op&ccedil;&atilde;o na tela &quot;Yes, associate Code::Blocks with C/C++ file types&quot;. Pressione em &quot;OK&quot;.<br>
+<br>
+Se voc&ecirc; observar, por tr&aacute;s da ferramenta o processo de instala&ccedil;&atilde;o ter&aacute; conclu&iacute;do. A seguinte janela aparecer&aacute; para voc&ecirc;:<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig08.gif' border='0'>
+</center>
+<br>
+Pressione &quot;Next&quot; para encerrar a instala&ccedil;&atilde;o do CodeBlocks.<br>
+<br>
+A tela de encerramento ent&atilde;o aparecer&aacute; para voc&ecirc;:<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig09.gif' border='0'>
+</center>
+<br>
+Pressione &quot;Finish&quot; e a instala&ccedil;&atilde;o do CodeBlocks ser&aacute; conclu&iacute;da.<br>
+<br>
+Voc&ecirc; ent&atilde;o ir&aacute; se deparar com uma tela parecida com essa, pois a ferramenta foi executada e deve estar aberta na sua m&aacute;quina:<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig10.gif' border='0'>
+</center>
+<br>
+Ap&oacute;s se deparar com essa tela, v&aacute; ao menu e selecione a op&ccedil;&atilde;o > Settings > Compiler and debugger... A tela abaixo ir&aacute; aparecer para voc&ecirc;:<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig10_1.gif' border='0'>
+</center>
+<br>
+Selecione a op&ccedil;&atilde;o &quot;Global Compiler Settings&quot; (possivelmente ela j&aacute; deve estar selecionada para voc&ecirc;), e procure a aba &quot;Toolchain Executables&quot;. Verifique se no local marcado na tela abaixo o compilador est&aacute; apontando para o MinGW do diret&oacute;rio de instala&ccedil;&atilde;o do CodeBlocks: &quot;C:/Arquivos de Programas/CodeBlocks/MinGW&quot;.<br>
+<br>
+<center>
+<img src='/schifers/images/art04/fig10_2.gif' border='0'>
+</center>
+<br>
+Caso n&atilde;o esteja, conserte o caminho.<br>
+<br>
+Ap&oacute;s a instala&ccedil;&atilde;o, siga para a pr&oacute;xima p&aacute;gina para instalarmos a SDL.<br>
+<br>

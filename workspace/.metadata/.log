@@ -1,0 +1,216 @@
+!SESSION 2008-09-06 13:33:55.260 -----------------------------------------------
+eclipse.buildId=M20080221-1800
+java.version=1.6.0_07
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=pt_BR
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.jface 2 0 2008-09-06 13:36:56.581
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2008-09-06 13:36:56.581
+!MESSAGE A conflict occurred for ALT+SHIFT+R:
+Binding(ALT+SHIFT+R,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.rename.element,Rename - Refactoring ,
+		Rename the selected element,
+		Category(org.eclipse.jdt.ui.category.refactoring,Refactor - Java,Java Refactoring Actions,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+SHIFT+R,
+	ParameterizedCommand(Command(org.eclipse.php.ui.edit.text.rename.element,Rename - Refactoring ,
+		Rename the selected element,
+		Category(org.eclipse.php.ui.category.refactoring,Refactor - PHP,PHP Refactoring Actions,true),
+		LegacyHandlerWrapper(ActionHandler(action=org.eclipse.php.internal.ui.actions.RenameAction@b088f8)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.php.ui.contexts.window,,,system)
+Binding(ALT+SHIFT+R,
+	ParameterizedCommand(Command(org.eclipse.php.ui.edit.text.rename.element,Rename - Refactoring ,
+		Rename the selected element,
+		Category(org.eclipse.php.ui.category.refactoring,Refactor - PHP,PHP Refactoring Actions,true),
+		LegacyHandlerWrapper(ActionHandler(action=org.eclipse.php.internal.ui.actions.RenameAction@b088f8)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.php.ui.phpEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2008-09-06 13:36:56.581
+!MESSAGE A conflict occurred for ALT+SHIFT+V:
+Binding(ALT+SHIFT+V,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.move.element,Move - Refactoring ,
+		Move the selected element to a new location,
+		Category(org.eclipse.jdt.ui.category.refactoring,Refactor - Java,Java Refactoring Actions,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+SHIFT+V,
+	ParameterizedCommand(Command(org.eclipse.php.ui.edit.text.move.element,Move - Refactoring ,
+		Move the selected element to a new location,
+		Category(org.eclipse.php.ui.category.refactoring,Refactor - PHP,PHP Refactoring Actions,true),
+		LegacyHandlerWrapper(ActionHandler(action=org.eclipse.php.internal.ui.actions.MoveAction@1f070e8)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.php.ui.contexts.window,,,system)
+Binding(ALT+SHIFT+V,
+	ParameterizedCommand(Command(org.eclipse.php.ui.edit.text.move.element,Move - Refactoring ,
+		Move the selected element to a new location,
+		Category(org.eclipse.php.ui.category.refactoring,Refactor - PHP,PHP Refactoring Actions,true),
+		LegacyHandlerWrapper(ActionHandler(action=org.eclipse.php.internal.ui.actions.MoveAction@1f070e8)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.php.ui.phpEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2008-09-06 13:36:56.581
+!MESSAGE A conflict occurred for F3:
+Binding(F3,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.open.editor,Open Declaration,
+		Open an editor on the selected element,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(F3,
+	ParameterizedCommand(Command(org.eclipse.php.ui.edit.text.open.editor,Open Selection,
+		Open an editor on the selected element,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.php.ui.contexts.window,,,system)
+Binding(F3,
+	ParameterizedCommand(Command(org.eclipse.php.ui.edit.text.OpenDeclaration,Open Declaration,
+		Open the declaration of the selected element,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		LegacyHandlerWrapper(ActionHandler(action=org.eclipse.php.internal.ui.actions.OpenDeclarationAction@84c5ae)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.php.ui.phpEditorScope,,,system)
+!SESSION 2008-09-06 13:45:14.757 -----------------------------------------------
+eclipse.buildId=M20080221-1800
+java.version=1.6.0_07
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=pt_BR
+Command-line arguments:  -os win32 -ws win32 -arch x86 -data F:\Projeto\Schifers\workspace
+
+!ENTRY org.eclipse.jface 2 0 2008-09-06 13:45:31.650
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2008-09-06 13:45:31.650
+!MESSAGE A conflict occurred for ALT+SHIFT+R:
+Binding(ALT+SHIFT+R,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.rename.element,Rename - Refactoring ,
+		Rename the selected element,
+		Category(org.eclipse.jdt.ui.category.refactoring,Refactor - Java,Java Refactoring Actions,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+SHIFT+R,
+	ParameterizedCommand(Command(org.eclipse.php.ui.edit.text.rename.element,Rename - Refactoring ,
+		Rename the selected element,
+		Category(org.eclipse.php.ui.category.refactoring,Refactor - PHP,PHP Refactoring Actions,true),
+		LegacyHandlerWrapper(ActionHandler(action=org.eclipse.php.internal.ui.actions.RenameAction@4f14b0)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.php.ui.contexts.window,,,system)
+Binding(ALT+SHIFT+R,
+	ParameterizedCommand(Command(org.eclipse.php.ui.edit.text.rename.element,Rename - Refactoring ,
+		Rename the selected element,
+		Category(org.eclipse.php.ui.category.refactoring,Refactor - PHP,PHP Refactoring Actions,true),
+		LegacyHandlerWrapper(ActionHandler(action=org.eclipse.php.internal.ui.actions.RenameAction@4f14b0)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.php.ui.phpEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2008-09-06 13:45:31.650
+!MESSAGE A conflict occurred for ALT+SHIFT+V:
+Binding(ALT+SHIFT+V,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.move.element,Move - Refactoring ,
+		Move the selected element to a new location,
+		Category(org.eclipse.jdt.ui.category.refactoring,Refactor - Java,Java Refactoring Actions,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+SHIFT+V,
+	ParameterizedCommand(Command(org.eclipse.php.ui.edit.text.move.element,Move - Refactoring ,
+		Move the selected element to a new location,
+		Category(org.eclipse.php.ui.category.refactoring,Refactor - PHP,PHP Refactoring Actions,true),
+		LegacyHandlerWrapper(ActionHandler(action=org.eclipse.php.internal.ui.actions.MoveAction@1d74bb1)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.php.ui.contexts.window,,,system)
+Binding(ALT+SHIFT+V,
+	ParameterizedCommand(Command(org.eclipse.php.ui.edit.text.move.element,Move - Refactoring ,
+		Move the selected element to a new location,
+		Category(org.eclipse.php.ui.category.refactoring,Refactor - PHP,PHP Refactoring Actions,true),
+		LegacyHandlerWrapper(ActionHandler(action=org.eclipse.php.internal.ui.actions.MoveAction@1d74bb1)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.php.ui.phpEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2008-09-06 13:45:31.650
+!MESSAGE A conflict occurred for F3:
+Binding(F3,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.open.editor,Open Declaration,
+		Open an editor on the selected element,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(F3,
+	ParameterizedCommand(Command(org.eclipse.php.ui.edit.text.open.editor,Open Selection,
+		Open an editor on the selected element,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.php.ui.contexts.window,,,system)
+Binding(F3,
+	ParameterizedCommand(Command(org.eclipse.php.ui.edit.text.OpenDeclaration,Open Declaration,
+		Open the declaration of the selected element,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		LegacyHandlerWrapper(ActionHandler(action=org.eclipse.php.internal.ui.actions.OpenDeclarationAction@1aa7a6a)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.php.ui.phpEditorScope,,,system)
+
+!ENTRY org.eclipse.php.core 4 10001 2008-09-06 13:50:26.194
+!MESSAGE PHPCore plugin internal error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/schifers' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:310)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.read(FileSystemResourceManager.java:604)
+	at org.eclipse.core.internal.resources.File.getContents(File.java:287)
+	at org.eclipse.core.internal.resources.File.getContents(File.java:276)
+	at org.eclipse.php.internal.core.phpModel.parser.management.ProjectParsingManager.fileAdded(Unknown Source)
+	at org.eclipse.php.internal.core.phpModel.parser.PHPProjectModel.fireFileDataAdded(Unknown Source)
+	at org.eclipse.php.internal.core.phpModel.parser.PHPProjectModel.addFileToModel(Unknown Source)
+	at org.eclipse.php.internal.core.phpModel.parser.PHPWorkspaceModelManager.addFileToModel(Unknown Source)
+	at org.eclipse.php.internal.ui.editor.PHPStructuredEditor$3$1.runInWorkspace(Unknown Source)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:38)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2008-09-06 13:50:26.195
+!MESSAGE Resource '/schifers' does not exist.
+
+!ENTRY org.eclipse.ui 4 4 2008-09-06 14:17:09.198
+!MESSAGE Part already exists in page layout: org.eclipse.debug.ui.PHPStackView.
+
+!ENTRY org.eclipse.osgi 2 1 2008-09-06 14:18:00.464
+!MESSAGE NLS missing message: DebugConnectionThread_oldDebuggerVersion in: org.eclipse.php.internal.debug.core.PHPDebugCoreMessages
+
+!ENTRY org.eclipse.osgi 2 1 2008-09-06 14:18:00.490
+!MESSAGE NLS missing message: DebugServerTestEvent_success in: org.eclipse.php.internal.debug.core.PHPDebugCoreMessages
+
+!ENTRY org.eclipse.osgi 2 1 2008-09-06 14:18:00.511
+!MESSAGE NLS missing message: DebugServerTestEvent_timeOutMessage in: org.eclipse.php.internal.debug.core.PHPDebugCoreMessages
+
+!ENTRY org.eclipse.php.debug.core 4 4 2008-09-06 14:25:04.399
+!MESSAGE No session id
+
+!ENTRY org.eclipse.php.debug.core 4 4 2008-09-06 14:25:04.711
+!MESSAGE No session id
+
+!ENTRY org.eclipse.php.debug.core 4 4 2008-09-06 14:25:09.519
+!MESSAGE No session id
+
+!ENTRY org.eclipse.php.debug.core 4 4 2008-09-06 14:25:15.458
+!MESSAGE No session id

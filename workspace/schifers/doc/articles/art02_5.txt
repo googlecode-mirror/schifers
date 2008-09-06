@@ -1,0 +1,192 @@
+Vamos implementar agora os 3 estados deste jogo. Copie o código seguinte para o arquivo Estados.h. 
+
+<code>
+#ifndef ESTADOS_H
+#define ESTADOS_H
+
+class EstadoApresentacao : public Estado
+{
+  private:
+    // Instância única da classe (Singleton)
+    static EstadoApresentacao* m_pInstancia;
+  public:
+    // Cria a instância única da classe (Singleton)
+    static EstadoApresentacao* CriaInstancia();
+
+    void AoEntrar();
+
+    void ExecutaFrame();
+
+    void AoSair();
+    
+    // Eventos de mudança de estado
+    void AoTerminarTempo(Maquina* maquina);
+};
+
+class EstadoMenu : public Estado
+{
+  private:
+    // Instância única da classe (Singleton)
+    static EstadoMenu* m_pInstancia;
+  public:
+    // Cria a instância única da classe (Singleton)
+    static EstadoMenu* CriaInstancia();
+
+    void AoEntrar();
+
+    void ExecutaFrame();
+
+    void AoSair();
+    
+    // Eventos de mudança de estado
+    void AoPressionarJogar(Maquina* maquina);
+    void AoPressionarSair(Maquina* maquina);
+};
+
+class EstadoJogo : public Estado
+{
+  private:
+    // Instância única da classe (Singleton)
+    static EstadoJogo* m_pInstancia;
+  public:
+    // Cria a instância única da classe (Singleton)
+    static EstadoJogo* CriaInstancia();
+
+    void AoEntrar();
+
+    void ExecutaFrame();
+
+    void AoSair();
+
+    // Eventos de mudança de estado
+    void AoPressionarESC(Maquina* maquina);
+};
+
+#endif  
+</code>
+
+Como você pode visualizar no código, todos os meus estados são um Singleton, isso é recomendação do Erich Gamma em seu livro. Portanto, os 3 estados terão os métodos e atributos referentes ao padrão Singleton. O método é o CriaInstancia() e o atributo é o m_pInstancia. Você pode notar que todos os estados possuem esse método e esse atributo. 
+
+Em seguida temos a declaração dos 3 métodos que foram declarados abstratos na classe Estado: AoSair(), ExecutarFrame() e AoEntrar(). Cada um desses métodos já foram explicados anteriormente, mas o que vou acrescentar é que cada um dos estados possui uma lógica sua de sequência de tarefas que eles vão executar, ou seja, a lógica é específica para cada estado. Eu mostrarei isso na implementação do estado. 
+
+Após declarar os métodos acima, encontramos os eventos da máquina tratados por um estado específico. Os estados não implementam todos os eventos e sim somente aqueles que ele irá ser capaz de tratar. Por isso que no primeiro estado, você encontra o método AoTerminarTempo() e nos outros estados não. Esse método só é necessário no estado apresentação de acordo com as definições de nosso projeto. Isso vale para os outros estados também, você verá que cada um implementa os eventos necessários para ele. 
+
+Agora, observe a implementação da classe acima. Acrescente o código abaixo no arquivo Estados.cpp: 
+
+<code>
+#include "Global.h"
+
+EstadoApresentacao* EstadoApresentacao::m_pInstancia = 0;
+
+EstadoApresentacao* EstadoApresentacao::CriaInstancia()
+{
+  if(m_pInstancia == 0)
+  {
+    m_pInstancia = new EstadoApresentacao();
+  }
+  
+  return m_pInstancia;
+}
+
+void EstadoApresentacao::AoEntrar()
+{
+}
+
+void EstadoApresentacao::ExecutaFrame()
+{
+  printf(" Apresentacao ");
+}
+
+void EstadoApresentacao::AoSair()
+{
+}
+
+void EstadoApresentacao::AoTerminarTempo(Maquina* maquina)
+{
+  ExecutaTransicao(maquina, EstadoMenu::CriaInstancia());
+}
+
+EstadoMenu* EstadoMenu::m_pInstancia = 0;
+
+EstadoMenu* EstadoMenu::CriaInstancia()
+{
+  if(m_pInstancia == 0)
+  {
+    m_pInstancia = new EstadoMenu();
+  }
+  
+  return m_pInstancia;
+}
+
+void EstadoMenu::AoEntrar()
+{
+}
+
+void EstadoMenu::ExecutaFrame()
+{
+  printf(" Menu ");
+  printf(" - Pressione 'j' para jogar");
+  printf(" - Pressione 'q' para sair ");
+}
+
+void EstadoMenu::AoSair()
+{
+}
+
+void EstadoMenu::AoPressionarSair(Maquina* maquina)
+{
+  maquina->Finalizar();
+}
+
+void EstadoMenu::AoPressionarJogar(Maquina* maquina)
+{
+  ExecutaTransicao(maquina, EstadoJogo::CriaInstancia());
+}
+
+EstadoJogo* EstadoJogo::m_pInstancia = 0;
+
+EstadoJogo* EstadoJogo::CriaInstancia()
+{
+  if(m_pInstancia == 0)
+  {
+    m_pInstancia = new EstadoJogo();
+  }
+  
+  return m_pInstancia;
+}
+
+void EstadoJogo::AoEntrar()
+{
+}
+
+void EstadoJogo::ExecutaFrame()
+{
+  printf(" Jogo ");
+  printf(" Pressione 'ESC' para sair");
+}
+
+void EstadoJogo::AoSair()
+{
+}
+
+void EstadoJogo::AoPressionarESC(Maquina* maquina)
+{
+  ExecutaTransicao(maquina, EstadoMenu::CriaInstancia());
+}  
+</code>
+
+No código acima, nós vemos o padrão Singleton implementado para cada um dos estados (já foi explicado anteriormente). Em seguida, não precisei implementar código para os eventos AoSair() e AoEntrar(), pois a simplicidade do meu projeto não exige inicialização de objetos nos estados, ao contrário do método ExecutaFrame(). Esse último necessita de um código específico, pois aqui eu imprimo a mensagem que indica na tela qual estado está rodando nesse momento. 
+
+Em seguida, nós encontraremos a implementação dos eventos. Basicamente, nesse tutorial, a lógica da transição de um estado é simplesmente passar a instância da máquina e a instância do novo estado. O método ExecutaTransicao() implementado na classe Estado pai é então chamado recebendo a máquina e o novo estado. Ele chama então, o método ExecutaTransicao() da máquina recebendo a instância do novo estado. Esse método pegará essa instância e indicará que o seu atributo m_pEstadoAtual irá receber a referência para essa instância. Dessa forma, o estado atual muda e a máquina assume um novo estado concreto. 
+
+Se você quiser fazer o download do projeto com o código fonte completo deste tutorial no Codeblocks <a href='/schifers/files/tutorialCodeblocks.zip'>clique aqui</a>.
+
+Se você preferis fazer o download do projeto para o Dev-C++ <a href='/schifers/files/tutorial.zip'>clique aqui</a>. 
+
+Com isso, nós terminamos mais um tutorial da Schifer. Se você seguiu o tutorial inteiro e gostou ou não gostou do que leu, tem dúvidas sobre o que leu, ou quer apenas me mandar uma mensagem, sinta-se livre para me enviar um e-mail. Meu e-mail é <a href='mailto:schifers@hotmail.com'>schifers@hotmail.com</a>. Agradeço a atenção e espero que vocês tenham entendido tudo o que foi explicado aqui. 
+
+Um abraço a todos e até o próximo tutorial. 
+
+Bruno Schifer 
+
+ 

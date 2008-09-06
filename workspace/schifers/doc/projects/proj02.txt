@@ -1,0 +1,26 @@
+O projeto Coral trata-se de um jogo de naves no estilo shoot'em up. Esse jogo está sendo implementado para concorrer na próxima edição da competição de jogos da PDJ.
+
+A elaboração do jogo tem o objetivo de aprendizado das técnicas de programação de jogos e elaboração de tutoriais e ferramentas sobre as técnicas nele implementadas.
+
+O jogo se trata da invasão de uma raça alienígena ao planeta Terra.
+
+As principais funcionalidades a serem implementadas serão:
+
+- Sistema gráfico 2d
+- Sistema de logging
+- Sistema de erros com tratamento de exceptions
+- Sistema de entrada no teclado, mouse e joystick
+- Sistema de efeitos e sons
+- Interface gráfica de usuários
+- Empacotamento de arquivos
+- Máquina de Estado
+- Sistema de scripts
+- Editor de mapas
+- Sistema de construção de mapas em mosaico
+- Editor de fases (5 fases)
+- Inteligência artifical básica (movimentos pré-definidos e scriptados)
+- Gráfico pixel art
+- Sistema de apresentação de fontes TTF
+- Sistema de apresentação de fontes em imagens
+- Localização da aplicação (jogo em várias línguas)
+

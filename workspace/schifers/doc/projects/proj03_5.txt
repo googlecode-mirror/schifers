@@ -1,0 +1,9 @@
+Objetos
+
+O jogo utiliza os seguintes objetos:
+
+- Spray de Inseticida: eles aparecem durante as fases para repor a carga de inseticida de Fofia que vai acabando a cada disparo.
+- Tiro de Spray: Fofia dispara inseticida nas moscas que se trata de uma nuvem pequena de gás que mata a mosca ao atingi-la.
+- Pães: Fofia se utiliza de pedaços de pães para se proteger da baba tóxica soltada pelas moscas. Os pedaços ficam entre a Fofia e as moscas. As moscas se alimentam desses pães que vão diminuindo no decorrer do tempo em que as moscas vão se alimentando.
+- Baba tóxica: é uma baba verde soltada pelas moscas que ao atingir Fofia, tira uma vida dela.
+

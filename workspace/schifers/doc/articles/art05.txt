@@ -1,0 +1,215 @@
+Primeiramente, faça o download do empacotador no link abaixo:
+
+<a href='http://www.brunoschifer.blog.br/schifers/files/SchiferPacker.zip'>SchiferPacker - versão beta</a>
+
+
+Descompacte o conteúdo em um diretório e não se esqueça de levar a bzip2.dll junto para todo lugar que o empacotador for.
+
+Para usar o empacotador, utilize os seguintes comandos:
+
+1 - Cria Header
+2 - Destroi Header
+3 - Insere Item
+4 - Destroi Todos os Itens
+5 - Grava Arquivo
+6 - Carrega Arquivo
+7 - Extrai Arquivo
+8 - Lista Arquivos
+
+0 - Finalizar
+
+Vamos ao tutorial então. Para criar um arquivo, você sempre deve criar primeiro um header para ele. A estrutura não existe em memória, portanto sempre antes de inserir itens no pacote, crie o header do arquivo. É imprescindível esse passo.
+
+Ao clicar na opção 1, o programa irá devolver uma mensagem dizendo que o header do arquivo foi criado em memória e irá aguardar você pressionar um botão. Fique atento às mensagens.
+
+Caso você queira, existe a opção de liberar a memória do header criado. Selecione a opção 2 para fazer isso.
+
+Quando você sair do programa, as estruturas serão destruídas também.
+
+Na opção 3, você insere um arquivo dentro do pacote. O programa irá solicitar o nome do arquivo que deve ser inserido. O arquivo deve estar sempre dentro do mesmo diretório do programa. Ao digitar o nome do arquivo e pressionar enter, o programa irá apresentar uma mensagem de sucesso dizendo se o arquivo foi ou não incluído no pacote.
+
+Ao incluir um arquivo, o programa usa o a biblioteca bzip2 para compactá-lo. O programa ainda não possui a funcionalidade de criptografar os arquivos.
+
+Os arquivos vão sendo criados em sequência dentro de um array de estruturas de arquivo. Essas estruturas serão gravadas no pacote. Cada arquivo com seu header e sua área de dados.
+
+Caso você queira destruir o array de arquivos, clique na opção 4 e a memória ocupada pelos arquivos será liberada.
+
+Após selecionar todos os arquivos do pacote, você pode selecionar a opção 5, que possibilitará a criação do pacote fisicamente. Até agora, o pacote está todo criado em memória. Ao selecionar essa opção, o programa irá solicitar o nome do arquivo de pacote e, ao pressionar enter, o arquivo será criado no mesmo diretório aonde o programa está rodando.
+
+Caso você queira simplesmente carregar um arquivo para memória, para poder observar seu conteúdo, inserir mais itens ou extrair um arquivo, selecione a opção 6. As estruturas do arquivo serão carregadas e você poderá adicionar novos itens, listar o conteúdo do pacote ou ainda extrair um dos arquivos que estão empacotados. Ao selecionar essa opção, o programa solicita o nome do arquivo que você quer carregar. Após pressionar enter, o programa carrega os dados e retorna uma mensagem de sucesso.
+
+Com a opção 7, você pode extrair um dos arquivos que estão armazenados, basta você digitar o nome do arquivo e selecionar enter.
+
+Na opção 8, o programa retorna a lista de arquivos empacotados no pacote.
+
+Para sair do programa, escolha 0.
+
+Com essas explicações, você é capaz de usar todas as funcionalidades deste empacotador.
+
+Agora vamos ver a biblioteca de extração de arquivos. Você pode usá-la com SDL, Allegro, DirectX ou qualquer outra biblioteca que você queira.
+
+Primeiramente, faça o download dos arquivos da biblioteca:
+
+<a href='http://www.brunoschifer.blog.br/schifers/files/LibSchPck.zip'>Schifer Packing Library - versão beta</a>
+
+
+Para usar a biblioteca é muito simples.
+
+Se você usa o CodeBlocks, linke o arquivo libschpck.a ao seu projeto.
+
+Se você usa o VisualStudio, linke o arquivo libschpck.lib ao seu projeto.
+
+Diga ao compilador aonde encontrar o arquivo schpck.h, ou simplesmente inclua ele no seu projeto.
+
+Por último, não se esqueça de deixar o arquivo libschpck.dll no mesmo diretório que seu programa estiver rodando.
+
+Para usar as funções da biblioteca, preste atenção nestas definições:
+
+<code>
+struct FILE_HEADER
+{
+    char id[3];         // código identificador de arquivo "SCH"
+    int quantity;       // quantidade de arquivos dentro do pacote
+    int size;           // tamanho do arquivo
+    int offset;         // posição onde começa o conteúdo dos arquivos
+};
+
+struct FILE_ITEM_HEADER
+{
+    char filename[MAX_FILENAME_SIZE];   // nome do arquivo
+    int size;                           // tamanho do arquivo
+    int compressed_size;                // tamanho do arquivo compactado
+    int offset;                         // posição do arquivo
+};
+
+struct FILE_ITEM_DATA
+{
+    char* data;         // file data
+};
+
+ERROR_TYPE DLL_EXPORT loadFile(char* filename, FILE_HEADER* header, FILE_ITEM_HEADER*** item_header,
+FILE_ITEM_DATA*** item_data, int* item_header_len, int* item_data_len);
+
+ERROR_TYPE DLL_EXPORT extractFile(char* filename, FILE_HEADER* header, FILE_ITEM_HEADER** item_header,
+FILE_ITEM_DATA** item_data, char** dstBuffer, unsigned int* dstLen);
+</code>
+
+Aqui vai um programa de teste para a biblioteca usando SDL:
+
+<code>
+#include "sdl.h"
+#include "schpck.h"
+
+FILE_HEADER header;
+FILE_ITEM_HEADER** item_header = 0;
+FILE_ITEM_DATA** item_data = 0;
+
+int item_header_len;
+int item_data_len;
+
+char filename_1[10] = "teste.sch";
+char filename_2[7] = "cb.bmp";
+char* dstBuffer = 0;
+unsigned int dstLen;
+
+int main ( int argc, char** argv )
+{
+    // initialize SDL video
+    if ( SDL_Init( SDL_INIT_VIDEO ) < 0 )
+    {
+        printf( "Unable to init SDL: %s\n", SDL_GetError() );
+        return 1;
+    }
+
+    // make sure SDL cleans up before exit
+    atexit(SDL_Quit);
+
+    // create a new window
+    SDL_Surface* screen = SDL_SetVideoMode(640, 480, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
+    if ( !screen )
+    {
+        printf("Unable to set 640x480 video: %s\n", SDL_GetError());
+        return 1;
+    }
+
+    // carrega o arquivo
+    loadFile((char*) &filename_1, &header, &item_header,
+    &item_data, &item_header_len, &item_data_len);
+
+    extractFile((char*) &filename_2, &header, item_header,
+    item_data, &dstBuffer, &dstLen);
+
+    SDL_RWops* rwops;
+
+    rwops = SDL_RWFromMem(dstBuffer, (int) dstLen);
+
+    // load an image
+    SDL_Surface* bmp = SDL_LoadBMP_RW(rwops, 0);
+    if (!bmp)
+    {
+        printf("Unable to load bitmap: %s\n", SDL_GetError());
+        return 1;
+    }
+
+    // centre the bitmap on screen
+    SDL_Rect dstrect;
+    dstrect.x = (screen->w - bmp->w) / 2;
+    dstrect.y = (screen->h - bmp->h) / 2;
+
+    // program main loop
+    bool done = false;
+    while (!done)
+    {
+        // message processing loop
+        SDL_Event event;
+        while (SDL_PollEvent(&event))
+        {
+            // check for messages
+            switch (event.type)
+            {
+                // exit if the window is closed
+                case SDL_QUIT:
+                    done = true;
+                    break;
+
+                // check for keypresses
+                case SDL_KEYDOWN:
+                    // exit if ESCAPE is pressed
+                    if (event.key.keysym.sym == SDLK_ESCAPE)
+                        done = true;
+                    break;
+                    
+            } // end switch
+        } // end of message processing
+
+        // DRAWING STARTS HERE
+
+        // clear screen
+        SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
+
+        // draw bitmap
+        SDL_BlitSurface(bmp, 0, screen, &dstrect);
+
+        // DRAWING ENDS HERE
+
+        // finally, update the screen :)
+        SDL_Flip(screen);
+    } // end main loop
+
+    // free loaded bitmap
+    SDL_FreeSurface(bmp);
+
+    // all is well ;)
+    printf("Exited cleanly\n");
+    return 0;
+}
+</code>
+
+Lembrando que você deve colocar o seguinte arquivo no mesmo diretório do seu programa:
+
+<a href='http://www.brunoschifer.blog.br/schifers/files/teste.sch'>Pacote de Teste</a> - Clique com o botão direito e selecione "Salvar destino como..."
+
+Qualquer dúvida entre em contato, eu pretendo detalhar mais esse tutorial depois.
+
+Peço paciência e qualquer dúvida: <a href='mailto:schifers@hotmail.com'>schifers@hotmail.com</a>.
+

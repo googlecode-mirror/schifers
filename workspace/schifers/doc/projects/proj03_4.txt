@@ -1,0 +1,10 @@
+Personagens
+
+O jogo é composto pelas seguintes personagens:
+
+- Fofia: ela é a personagem principal, trata-se de uma menininha loira de cinco anos de idade que está com seu uniforme do colégio, uma mochila nas costas e um tubo de inseticida na mão.
+- Serginho: Menino de rua, também de cinco anos, que possui cabelos pretos enrolados. Sua roupa está rasgada e seu corpinho está todo sujo. Além disso, ele exala um odor forte de seu corpo, que é o principal atrativo das moscas que infestam a casa de Fofia.
+- Moscão: Chefe das moscas, ele seguiu o cheiro do Serginho que estava morrendo de fome e entrou na casa de Fofia.
+- Moscas Normais: São moscas inimigas normais que soltam projéteis de baba tóxica.
+- Moscas Varejeiras: São moscas verdes e mais fortes que as moscas normais, elas também soltam baba tóxica.
+

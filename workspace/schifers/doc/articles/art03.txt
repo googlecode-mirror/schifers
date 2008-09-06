@@ -1,0 +1,231 @@
+Após termos configurado um projeto para usar a SDL, que tal começarmos a utilizá-la?
+
+Vamos fazer uma primeira operação bem simples, ou seja, vamos iniciar uma janela SDL.
+
+O código que estaremos observando nesse tutorial é o seguinte:
+
+<code>
+#include "sdl.h"
+
+int main(int argc, char **argv)
+{
+  // Centraliza a imagem
+  putenv("SDL_VIDEO_WINDOW_POS");
+  putenv("SDL_VIDEO_CENTERED=1");
+
+  // Inicializa a SDL e todos os seus sub sistemas
+  SDL_Init(SDL_INIT_EVERYTHING);
+  
+  // Seta o nome da janela como Tutorial
+  SDL_WM_SetCaption("Tutorial", NULL);
+
+  // Inicializa o vídeo na resolução 800x600, 32 bits por pixel e nenhuma flag é passada
+  SDL_Surface* screen = SDL_SetVideoMode( 800, 600, 32, 0 );
+
+  // Inicializa a estrutura evento
+  SDL_Event event;
+
+  // Loop principal
+  while(true)
+  {
+    // Recebe os eventos de entrada
+    if( SDL_PollEvent( &event ) )
+    {
+      // Se o evento for do tipo SDL_QUIT, sai do loop
+      if( event.type == SDL_QUIT )
+      {
+        break;
+      }
+      // Se uma tecla for pressionada e for ESC. lança um evento do tipo SDL_QUIT
+      if( event.type == SDL_KEYDOWN )
+      {
+        if( event.key.keysym.sym == SDLK_ESCAPE )
+        {
+          SDL_Event quit;
+          quit.type = SDL_QUIT;
+          SDL_PushEvent( &quit );
+        }
+      }
+    }
+
+    // Preenche o buffer com a cor preta, limpando ele
+    SDL_FillRect( screen, NULL, SDL_MapRGB( screen->format, 0, 0, 0 ) );
+
+    // Faz o page flipping do buffer com a tela
+    SDL_UpdateRect( screen, 0, 0, 0, 0 );
+  }
+  
+  // Libera a memória do buffer da tela
+  SDL_FreeSurface(screen);
+
+  // Encerra a SDL liberando os recursos alocados
+  SDL_Quit();
+
+  return 0;
+}
+</code>
+
+Trata-se de um pequeno programa em C que, usando as funções da SDL, inicia uma janela 800 x 600.
+
+Para poder digitar esse código, vamos pegar o projeto que configuramos no tutorial "Configuração de Projeto com SDL".
+
+Abra o projeto e você terá uma tela como a que está abaixo:
+
+<center>
+<img src='/schifers/images/art03/fig01.gif' border='0'>
+</center>
+
+Clique com o botão direito no projeto "Tutorial" e selecione a opção "New File" no menu.
+
+Selecione a sua pasta "C:/Projetos" e crie um diretório "Tutorial3" dentro dela.
+
+Grave o seu novo arquivo com o nome de "Main.cpp" dentro da pasta "Tutorial3".
+
+Sua tela deverá ficar igual a esta aqui embaixo:
+
+<center>
+<img src='/schifers/images/art03/fig02.gif' border='0'>
+</center>
+
+Em seguida cole o código passado no início do tutorial nesse arquivo. Finalmente, sua tela ficará assim:
+
+<center>
+<img src='/schifers/images/art03/fig03.gif' border='0'>
+</center>
+
+Compile e execute o programa. Deve aparecer uma janela preta na sua tela, dessa forma:
+
+<center>
+<img src='/schifers/images/art03/fig04.gif' border='0'>
+</center>
+
+Essa é a tela básica da SDL de onde eu inicio a programar todos os meus jogos. Eu ainda modifico um pouco o programa antes de fazer meus jogos, pois prefiro a metodologia orientada a objetos para a construção de aplicações em C++, mas isso será assunto para um tutorial futuro. O que nos interessa a partir de agora, é entender cada linha do código passado acima que resultou nessa tela preta no meio de seu vídeo.
+
+Vamos seguir o código passo a passo começando pela linha abaixo:
+
+<code>
+#include "sdl.h"
+</code>
+
+Essa linha se trata da inclusão de um arquivo de cabeçalho. Os arquivos de cabeçalho são usados para guardar as declarações de funções e variáveis que serão usados no seu programa. Nesse caso, é o arquivo de declarações da SDL. Sem ele nós não conseguiríamos usar as funções da SDL, pois esse comando diz ao linker que devemos adicionar ao nosso executável as funções da SDL.
+
+<code>
+int main(int argc, char **argv)
+{
+</code>
+
+Essa outra linha acima, corresponde ao início de todo programa em C. Os programas em C começam na função main. A função main por padrão pode receber dois parâmetros. Um deles é um número inteiro argc e o outro é um vetor de strings argv. Esses parâmetros indicam a quantidade de parâmetros passados na chamada do programa e os seus respectivos valores. Nós não estaremos utilizando parâmetros de chamada de arquivo, portanto não nos convém explicar o funcionamento dessas duas variáveis.
+
+<code>
+  // Centraliza a imagem
+  putenv("SDL_VIDEO_WINDOW_POS");
+  putenv("SDL_VIDEO_CENTERED=1");
+</code>
+
+Esse outro bloco de código é responsável por centralizar a nossa tela preta na área de trabalho do windows. A SDL não possui funções de posicionamento da janela principal. Porém, nós podemos usar variáveis de ambiente que definem atributos específicos da SDL. No caso, estou centralizando a janela SDL na área de trabalho do windows setando valores para essas duas variáveis de ambiente.
+
+<code>
+  // Inicializa a SDL e todos os seus sub sistemas
+  SDL_Init(SDL_INIT_EVERYTHING);
+</code>
+
+Aqui estamos inicializando a SDL e os subsistemas da SDL. Essa função precisa ser chamada para que a SDL possa alocar seus recursos. Quanto aos subsistemas, nós podemos limitar a inicialização deles, porém aqui estou passando SDL_INIT_EVERYTHING que indica que a SDL deve ser iniciada com todos os seus subsistemas.
+
+<code>
+  // Seta o nome da janela como Tutorial
+  SDL_WM_SetCaption("Tutorial", NULL);
+</code>
+
+Esse último comando, define o nome da janela SDL. Nesse caso o nome que aparecerá será "Tutorial". Se você observar, você verá que o segundo parâmetro passado está com o valor NULL. Esse segundo parâmetro modifica o ícone da janela. Aqui não estou alterando o ícone, portanto estou passando NULL.
+
+<code>
+  // Inicializa o vídeo na resolução 800x600, 32 bits por pixel e nenhuma flag é passada
+  SDL_Surface* screen = SDL_SetVideoMode( 800, 600, 32, 0 );
+</code>
+
+Agora, acabamos de declarar a tela da SDL aonde poderemos desenhar. A tela é uma estrutura do tipo SDL_Surface e nesse caso aqui, estou declarando um ponteiro para ela. A função SDL_SetVideoMode retorna um ponteiro para uma área de memória aonde a estrutura estará alocada e recebe como parâmetros a largura e altura da janela, a quantidade de bits por pixel e as flags de configuração da tela, respectivamente. Não estou passando nenhuma flag para a função.
+
+<code>
+  // Inicializa a estrutura evento
+  SDL_Event event;
+</code>
+
+Em seguida, nós inicializamos a estrutura SDL_Event que servirá para que a SDL consiga receber os eventos que estão ocorrendo no teclado, mouse e outros dispositivos de entrada.
+
+<code>
+  // Loop principal
+  while(true)
+  {
+</code>
+
+Agora temos o loop principal do jogo. O jogo será executado em um ciclo contínuo até encontrar um comando break. Assim que encontrar, o jogo sai do ciclo e termina a aplicação. É dentro desse loop que programamos toda a lógica de um jogo (desenho dos personagens, atualização da posição deles, etc).
+
+<code>
+    // Recebe os eventos de entrada
+    if( SDL_PollEvent( &event ) )
+    {
+      // Se o evento for do tipo SDL_QUIT, sai do loop
+      if( event.type == SDL_QUIT )
+      {
+        break;
+      }
+      // Se uma tecla for pressionada e for ESC. lança um evento do tipo SDL_QUIT
+      if( event.type == SDL_KEYDOWN )
+      {
+        if( event.key.keysym.sym == SDLK_ESCAPE )
+        {
+          SDL_Event quit;
+          quit.type = SDL_QUIT;
+          SDL_PushEvent( &quit );
+        }
+      }
+    }
+</code>
+
+Esse bloco de código acima é aonde fazemos os tratamentos de eventos que a SDL tem que tratar. No nosso caso, estamos tratando os eventos SDL_QUIT, que executa o comando break, e SDL_KEYDOWN, que ao receber o pressionamento da tecla ESC no teclado, acaba lançando uma mensagem de sáida do tipo SDL_QUIT.
+
+<code>
+    // Preenche o buffer com a cor preta, limpando ele
+    SDL_FillRect( screen, NULL, SDL_MapRGB( screen->format, 0, 0, 0 ) );
+</code>
+
+Em seguida, usamos a função SDL_FillRect para limpar a tela prencheendo com a cor preta. Passamos então como parâmetro o ponteiro para nossa estrutura SDL_Surface* screen (tela), em seguida nulo, e por último a cor que utilizaremos para preencher a tela. No meu caso usei a cor preta: SDL_MapRGB( screen->format, 0, 0, 0 ).
+
+<code>
+    // Faz o page flipping do buffer com a tela
+    SDL_UpdateRect( screen, 0, 0, 0, 0 );
+</code>
+
+Após termos limpado a tela, temos que atualizar o buffer. Nós estávamos trabalhando com a surface screen que é um buffer em memória que representa nossa tela. Agora, teremos que jogar essa surface na própria tela mesmo. Ao jogar esse buffer na tela do monitor, teremos as imagens do jogo aparecendo. Esse método é conhecido por Double Buffering e ele é necessário para que tiremos o flickering de tela. Flickering é um efeito aonde a tela fica piscando intermitentemente durante a execução do jogo.
+
+<code>
+  }
+</code>
+
+Em seguida, encontramos o fim do loop principal.
+
+<code>
+  // Libera a memória do buffer da tela
+  SDL_FreeSurface(screen);
+</code>
+
+Vamos fazer as nossas limpezas agora. O código acima libera a memória usada na tela.
+
+<code>
+  // Encerra a SDL liberando os recursos alocados
+  SDL_Quit();
+</code>
+
+Aqui, a SDL libera os recursos e subsistemas carregados.
+
+<code>
+  return 0;
+}
+</code>
+
+Por último, nós retornamos 0 para o compilador e fechamos a chave. Com isso, podemos executar o programa de novo visualizando a execução de cada um dos comandos.
+
+Terminamos então mais um tutorial. O próximo irá tratar de visualização de imagens na tela e movimentação da mesma através das setas do teclado. Até a próxima.
+
+Bruno Schifer
+

@@ -1,0 +1,12 @@
+Características Técnicas
+
+Linguagem de Programação ---------- C++
+Ferramenta de Desenvolvimento ----- CodeBlocks v8.02
+Biblioteca Gráfica ---------------- SDL
+Imagens --------------------------- BMP 24/32 bits
+Biblioteca Efeitos Sonoros -------- SDL_Mixer
+Biblioteca de Fontes -------------- SDL_TTF
+Estilo de Jogo -------------------- Shoot'em up
+Referência de Jogo ---------------- Space Invaders
+Estilo de Gráfico ----------------- Cartoon 2d
+

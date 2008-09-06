@@ -1,0 +1,39 @@
+Imagens
+
+Segue abaixo o número de imagens necessárias para o jogo MOSKAS:
+
+- Tela de apresentação da SCHIFER (800 x 600)
+- Fundo da Tela de Menu (800x600)
+- Fontes das opções de Menu 
+- Título do jogo na tela de menu
+- Cenário jardim da casa (800 x 600)
+- Cenário sala de estar (800 x 600)
+- Cenário sala de tv (800 x 600)
+- Cenário quarto (800 x 600)
+- Cenário cozinha (800 x 600)
+- Cenário porão (800 x 600)
+- Animação da mosca normal
+--- Voando
+--- Comendo pão
+- Animação da mosca varejeira
+--- Voando
+--- Comendo pão
+- Animação do Moscão (a definir)
+- Animação da Fofia
+--- Correndo esquerda
+--- Correndo direita
+--- Lançando spray
+--- Sendo atingida por baba tóxica
+--- Terminando uma fase
+--- Chorando no game over
+--- Parada
+- Vida da Fofia
+- Fonte da pontuação
+- Spray inseticida
+- Baba tóxica
+- Tiro do spray
+- Tela de ajuda (800 x 600)
+- Tela de créditos (800 x 600)
+- Pão
+- Fontes game over e mensagens no início das fases
+

@@ -1,0 +1,150 @@
+Vamos observar o codigo da classe Maquina. Abra o arquivo Maquina.h e inclua o seguinte código nele: 
+
+<code>
+#ifndef MAQUINA_H
+#define MAQUINA_H
+
+class Estado;
+
+class Maquina
+{
+  private:
+    // Instância única da classe (Singleton)
+    static Maquina* m_pInstancia;
+
+    // Estado atual
+    class Estado* m_pEstadoAtual;
+    
+    // Indica se a máquina tem que parar
+    bool m_Finalizar;
+  public:
+    // Construtor da classe
+    Maquina();
+
+    // Cria a instância única da classe (Singleton)
+    static Maquina* CriaInstancia();
+
+    // Executa um frame de animação do estado atual
+    void ExecutaFrame();
+    
+    // Executa transição de estados
+    void ExecutaTransicao(Estado* estado);
+    
+    // Finaliza a máquina
+    void Finalizar();
+    
+    // Pergunta se pode finalizar a máquina
+    bool PodeFinalizar();
+    
+    // Eventos de mudança de estado
+    void AoPressionarJogar();
+    void AoPressionarSair();
+    void AoPressionarESC();
+    void AoTerminarTempo();
+};
+
+#endif  
+</code>
+
+Nesse fragmento acima nós temos a classe Maquina que irá controlar as mudanças de estado do meu jogo. Ao criar o objeto Maquina, eu utilizarei o padrão Singleton garantindo que eu tenha somente uma instância dessa classe em toda a execução da minha aplicação. Esse padrão não me deixa cometer o erro de criar duas instâncias dessa classe. Para aprender mais sobre o Singleton consulte o livro do Gamma ou procure na Internet, existem vários sites que mostram como implementá-lo. Esse padrão será assunto de um tutorial futuro aqui na Schifer. O atributo m_pInstancia aponta para a instância única da máquina e o método CriaInstancia() é o responsável pela criação da instância única. 
+
+O segundo atributo da classe Maquina é uma referência para o estado corrente do meu jogo: m_pEstadoAtual. 
+
+Em seguida, eu coloco um atributo booleano que informa se a máquina irá finalizar ou não. Caso esse atributo assuma um valor verdadeiro, a máquina irá informar à aplicação que o loop principal deve ser interrompido através de um comando break. Quem informa a aplicação é o método PodeFinalizar(). Esse método é chamado no meio do loop principal. Existe ainda um método Finalizar() que pode ser chamado em qualquer lugar da aplicação informando que a partir de agora, a máquina pode interromper o fluxo de execução, ou seja, esse método informa que já pode finalizar e o método PodeFinalizar() só responde a pergunta, pois em um ponto específico da execução, precisamos perguntar se podemos ou não executar o comando break. 
+
+Temos, então, o construtor da classe que limpa os ponteiros e faz com que a variável m_Finalizar receba falso, pois quando for verdadeiro, ela irá terminar a execução do loop principal. 
+
+Após o construtor, temos o método CriaInstancia() do Singleton. 
+
+Depois do método do Singleton, temos o método ExecutaFrame(). Ele é responsável por chamar o método ExecutaFrame() do estado corrente. 
+
+Os dois métodos seguintes são os métodos de finalização da máquina já explicado. 
+
+Por último, nós temos os métodos que lançam os eventos que a máquina trata. Para cada evento tratado, deve existir um método de lançamento desse evento. Eu poderia trocar esses nomes por nomes mais conceituais de jogo, mas para manter a complexidade baixa, eu chamei os métodos com os nomes das teclas que serão pressionadas, mas isso cabe a você decidir como irá implementar. 
+
+Vamos observar o código de implementação dos métodos acima: 
+
+<code>
+#include "Global.h"
+
+Maquina::Maquina()
+{
+  m_pEstadoAtual = 0;
+  m_Finalizar = false;
+}
+
+// Definição do atributo instância
+Maquina* Maquina::m_pInstancia = 0;
+
+// Cria a instância única da classe (Singleton)
+Maquina* Maquina::CriaInstancia()
+{
+  if(m_pInstancia == 0)
+  {
+    m_pInstancia = new Maquina();
+  }
+  
+  return m_pInstancia;
+}
+
+// Executa uma transição de estado
+void Maquina::ExecutaTransicao(Estado* estado)
+{
+  // Executa o evento AoSair() do estado antigo antes de executar a transição
+  if(m_pEstadoAtual != 0)
+  {
+    m_pEstadoAtual->AoSair();
+  }
+
+  m_pEstadoAtual = estado;
+  
+  // Executa o evento AoEntrar() do estado novo logo após executar a transição
+  m_pEstadoAtual->AoEntrar();
+}
+
+// Executa um frame de animação do estado atual
+void Maquina::ExecutaFrame()
+{
+  m_pEstadoAtual->ExecutaFrame();
+}
+
+void Maquina::Finalizar()
+{
+  m_Finalizar = true;
+}
+
+bool Maquina::PodeFinalizar()
+{
+  return m_Finalizar;
+}
+
+// Eventos de mudança de estado
+void Maquina::AoPressionarJogar()
+{
+  m_pEstadoAtual->AoPressionarJogar(this);
+}
+
+void Maquina::AoPressionarSair()
+{
+  m_pEstadoAtual->AoPressionarSair(this);
+}
+
+void Maquina::AoPressionarESC()
+{
+  m_pEstadoAtual->AoPressionarESC(this);
+}
+
+void Maquina::AoTerminarTempo()
+{
+  m_pEstadoAtual->AoTerminarTempo(this);
+}  
+</code>
+
+O código começa com o construtor que já foi explicado anteriormente, assim como o próximo método que é o responsável pela criação do Singleton. 
+
+O método ExecutaTransicao() é o responsável pela troca de estados. Existe um teste inicial que verifica se o valor do estado corrente é zero, pois se for, um erro será lançado ao se tentar usar um método a partir de um ponteiro para objeto vazio. Esse teste é necessário, pois não podemos chamar o método AoSair() na primeira vez que estivermos executando a máquina. Em seguida ele muda a referência do estado atual e logo em seguida chama o método AoEntrar() para o novo objeto que o ponteiro estará referenciando. 
+
+Após trocar o estado, temos o método ExecutaFrame() que como foi explicado anteriormente, chama o ExecutaFrame() do estado atual. 
+
+Temos então os métodos que fazem o controle de finalização da máquina, já explicados, e os métodos que implementam os eventos que a máquina trata. Todos eles chamam seus respectivos métodos nas classes filhas. É nas classes filhas que implementamos a lógica das transições, pois dependendo do evento que ocorrer e do estado atual, o próprio estado indica qual o próximo estado que a máquina assumirá. 
+

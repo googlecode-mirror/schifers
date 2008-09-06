@@ -1,0 +1,31 @@
+Ao construir um jogo, existem muitas coisas que devemos fazer para dar suporte &agrave;s caracter&iacute;sticas que queremos implementar nele. Acrescentar essas caracter&iacute;sticas tipo: carga de imagens, contru&ccedil;&atilde;o de menus, constru&ccedil;&atilde;o de mapas, controle de colis&otilde;es, utiliza&ccedil;&atilde;o de GUIs, utiliza&ccedil;&atilde;o de efeitos sonoros e m&uacute;sica, entre outras, n&atilde;o deixa de ser uma tarefa bem complexa. Um programa que alcan&ccedil;a esse n&iacute;vel de complexidade precisa estar bem estruturado e precisa fornecer ferramentas que auxiliem na detec&ccedil;&atilde;o de falhas e na l&oacute;gica de programa&ccedil;&atilde;o. O objetivo dessa aula &eacute; mostrar a voc&ecirc;s como construir um suporte &agrave; gera&ccedil;&atilde;o de logs do jogo e, consequentemente, fazer um tratamento de erros que gere as mensagens de erro nessa log. Com essas ferramentas, iremos tentar construir a funcionalidade de constru&ccedil;&atilde;o de menus para o nosso jogo exemplo.<br>
+<br>
+Antes de mais nada, fa&ccedil;a o download do arquivo dessa aula no link abaixo:<br>
+<br>
+<a href='/schifers/files/Aula3.zip'>Aula 3</a>
+<br>
+<br>
+Essa aula ir&aacute; se dividir em 3 partes. Na primeira parte, estaremos trabalhando o conceito de m&aacute;quinas de estados e sua utiliza&ccedil;&atilde;o na constru&ccedil;&atilde;o de um menu para o seu jogo. N&oacute;s utilizaremos o padr&atilde;o de projeto &quot;State Pattern&quot; do livro do Erich Gamma e seus co-autores. Estarei me baseando nessa primeira parte no artigo publicado por mim na se&ccedil;&atilde;o de artigos do meu site. Siga o link abaixo e leia o artigo completo, pois a teoria ser&aacute; explicada baseada neste artigo:<br>
+<br>
+<a href='/schifers/pages/pgArticlePage.php'>Artigos</a>
+<br>
+<br>
+Terminada essa primeira parte te&oacute;rica, estaremos vendo as duas novas classes que criei para darem suporte &agrave; implementa&ccedil;&atilde;o desse menu e do pr&oacute;prio jogo em si, no futuro.<br>
+<br>
+As classes criadas s&atilde;o:<br>
+<br>
+- Log<br>
+- Exception<br>
+<br>
+Observe o diagrama abaixo para compreender a liga&ccedil;&atilde;o dessas classes com o restante do c&oacute;digo:<br>
+<br>
+<center>
+<img src='/schifers/images/class03/fig01.jpg'>
+</center>
+<br>
+Agora o outro peda&ccedil;o do diagrama com a parte da m&aacute;quina de estados:<br>
+<br>
+<center>
+<img src='/schifers/images/class03/fig02.jpg'>
+</center>
+<br>

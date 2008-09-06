@@ -1,0 +1,24 @@
+aPong (Ping, sPong, xPong, xPing...)
+Introdução
+Esse documento tem como objetivo descrever as caraterísticas do jogo aPong. O jogo aPong é um clone do Pong do Atari.
+Trata-se de um video game "bat and ball" aonde temos uma visão top-down das raquetes (inclusive entao do adversario), do campo de jogo e da bolinha. O jogador basicamente deve ganhar um jogo de ping pong (tenis de mesa).
+O jogo introduz algumas inovacoes, como:
+power-up
+aumento da velocidade da bolinha
+golpe de destruicao da raquete (bolinha poderosa)
+inversao de campo
+teletransporte da bolinha
+raquete magnetica
+raquete maior
+raquete menor
+bolinha maior
+bolinha menor
+moltiplicacao bolinha
+paralizacao raquete adversaria
+bolinha desgastada (efeito imprevisivel, muda a qualquer momento de direcao)
+... 
+Entao podemos dizer que a maior inspiracao vem do jogo Arkanoid (e variantes, o que faz pensar que um nome adequado poderia ser aPong).
+
+P.S.: o numero e tipo de inovacoes dependera' de variaveis como complexidade de implementacao, tempo disponivel, interesse do efeito...
+
+De qualquer maneira irei implementar de maneira modular: novo efeito? So plugar e aproveitar. Pelo menos nas intencoes :)

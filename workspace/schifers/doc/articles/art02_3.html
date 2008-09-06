@@ -1,0 +1,63 @@
+Segundo Erich Gamma, inicialmente, temos que implementar uma classe abstrata chamada, no meu caso, de Estado e essa classe, basicamente, ir&aacute; implementar uma interface comum para todos os estados do jogo. As subclasses de Estado, implementam, ent&atilde;o, comportamentos espec&iacute;ficos a cada um destes estados. <br>
+<br>
+O modelo n&atilde;o &eacute; complicado. Segue abaixo um diagrama de classes do modelo que irei implementar baseado no livro do Gamma. <br>
+<br>
+<center>
+<img src='/schifers/images/art02/fig02.jpg' border='0'>
+</center>
+<br>
+Nesse modelo, a classe Maquina mant&eacute;m uma inst&acirc;ncia da classe Estado e a utiliza para executar opera&ccedil;&otilde;es espec&iacute;ficas ao estado do jogo. <br>
+<br>
+Toda vez que um estado muda, ou melhor, quando ocorre uma transi&ccedil;&atilde;o de estados, a inst&acirc;ncia de Estado da classe Maquina muda. <br>
+<br>
+Primeiramente, vamos observar o c&oacute;digo da classe Estado, pai de todos os estados do jogo. Abra o arquivo Estado.h e acrescente o c&oacute;digo abaixo: <br>
+<br>
+<center><table width='90%' cellspacing='0' cellpadding='0' bgcolor='#EEEEEE'><tr><td><font face='arial' color='#000000' size='1'>
+#ifndef&nbsp;ESTADO_H<br>
+#define&nbsp;ESTADO_H<br>
+<br>
+class&nbsp;Estado<br>
+{<br>
+&nbsp;&nbsp;public:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Eventos&nbsp;de&nbsp;mudan&ccedil;a&nbsp;de&nbsp;estado<br>
+&nbsp;&nbsp;&nbsp;&nbsp;virtual&nbsp;void&nbsp;AoPressionarJogar(Maquina*&nbsp;maquina)&nbsp;{};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;virtual&nbsp;void&nbsp;AoPressionarSair(Maquina*&nbsp;maquina)&nbsp;{};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;virtual&nbsp;void&nbsp;AoPressionarESC(Maquina*&nbsp;maquina)&nbsp;{};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;virtual&nbsp;void&nbsp;AoTerminarTempo(Maquina*&nbsp;maquina)&nbsp;{};<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Executa&nbsp;o&nbsp;evento&nbsp;de&nbsp;entrada&nbsp;do&nbsp;estado<br>
+&nbsp;&nbsp;&nbsp;&nbsp;virtual&nbsp;void&nbsp;AoEntrar()&nbsp;{};<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Executa&nbsp;um&nbsp;frame&nbsp;de&nbsp;anima&ccedil;&atilde;o&nbsp;do&nbsp;estado&nbsp;atual<br>
+&nbsp;&nbsp;&nbsp;&nbsp;virtual&nbsp;void&nbsp;ExecutaFrame()&nbsp;{};<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Executa&nbsp;o&nbsp;evento&nbsp;de&nbsp;sa&iacute;da&nbsp;do&nbsp;estado<br>
+&nbsp;&nbsp;&nbsp;&nbsp;virtual&nbsp;void&nbsp;AoSair()&nbsp;{};<br>
+&nbsp;&nbsp;protected:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;void&nbsp;ExecutaTransicao(Maquina*&nbsp;maquina,&nbsp;Estado*&nbsp;estado);<br>
+};<br>
+<br>
+#endif&nbsp;&nbsp;<br>
+</font></td></tr></table></center><br>
+<br>
+A nossa classe Estado possui um m&eacute;todo para cada evento tratado pela m&aacute;quina. Esses m&eacute;todos s&atilde;o abstratos (virtual) e podem ser reescritos nas classes filhas de Estado, ou seja, cada um dos estados do jogo ter&aacute; o tratamento de um evento espec&iacute;fico para o seu caso. Lembrando que n&atilde;o existe a necessidade de implementa&ccedil;&atilde;o de todos os m&eacute;todos de evento na classe filha, vou explicar isso mais a frente quando eu mostrar a implementa&ccedil;&atilde;o dessa classe. <br>
+<br>
+Como meus estados s&atilde;o estados de um jogo, antes de executar o frame de anima&ccedil;&atilde;o, eu preciso instanciar todos os objetos que irei utilizar na tela e os meus controladores de objetos, al&eacute;m de outras coisas. Por isso que crio dois eventos de estado que s&atilde;o: AoEntrar() e AoSair(). No momento em que executo uma transi&ccedil;&atilde;o de estados, eu fa&ccedil;o uma chamada ao m&eacute;todo AoSair() do estado atual, pois a m&aacute;quina ir&aacute; sair desse estado no momento da transi&ccedil;&atilde;o e ap&oacute;s ocorrer a transi&ccedil;&atilde;o eu fa&ccedil;o uma chamada ao m&eacute;todo AoEntrar() do estado atual, pois o estado foi alterado para um novo estado. Esses dois m&eacute;todos s&atilde;o chamados antes e depois da transi&ccedil;&atilde;o e eles s&atilde;o respons&aacute;veis por instanciar e liberar os recursos usados no Estado em quest&atilde;o. <br>
+<br>
+O m&eacute;todo ExecutaFrame() &eacute; usado para a l&oacute;gica contida no loop do jogo referente a um estado espec&iacute;fico. É nesse m&eacute;todo que eu, por exemplo, no EstadoJogo desenho e atualizo o jogador, os inimigos, os tiros, etc. <br>
+<br>
+Por &uacute;ltimo, o m&eacute;todo ExecutaTransicao() &eacute; utilizado para chamar os m&eacute;todos AoSair() e AoEntrar() e para executar a transi&ccedil;&atilde;o de estados em si. Ele &eacute; implementado na classe pai Estado, pois a l&oacute;gica deve ser a mesma para todos os estados filhos desta classe. <br>
+<br>
+Vamos observar o c&oacute;digo de implementa&ccedil;&atilde;o dessa classe Estado: <br>
+<br>
+<center><table width='90%' cellspacing='0' cellpadding='0' bgcolor='#EEEEEE'><tr><td><font face='arial' color='#000000' size='1'>
+#include&nbsp;&quot;Global.h&quot;<br>
+<br>
+void&nbsp;Estado::ExecutaTransicao(Maquina*&nbsp;maquina,&nbsp;Estado*&nbsp;estado)<br>
+{<br>
+&nbsp;&nbsp;maquina-&gt;ExecutaTransicao(estado);<br>
+}&nbsp;&nbsp;<br>
+</font></td></tr></table></center><br>
+<br>
+O &uacute;nico m&eacute;todo que temos que implementar aqui &eacute; o m&eacute;todo ExecutaTransicao(). Ao ser chamado, ele informa &agrave; m&aacute;quina, atrav&eacute;s do m&eacute;todo maquina->ExecutaTransicao(estado) o novo estado que a m&aacute;quina vai assumir como estado corrente. <br>
+<br>

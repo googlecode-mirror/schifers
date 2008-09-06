@@ -1,0 +1,76 @@
+Este artigo tem por finalidade mostrar como configurar um projeto em um compilador free para trabalharmos com SDL e C++ no Windows. 
+
+Como o objetivo é trabalhar com C++, com um compilador free que rode no Windows, eu escolhi o compilador Dev-C++. 
+
+Você pode baixar a versão 4.9.9.2 para Windows no link abaixo: 
+
+http://prdownloads.sourceforge.net/dev-cpp/devcpp-4.9.9.2_setup.exe 
+
+Após terminar o download do arquivo, execute e instale o programa seguindo os passos abaixo: 
+
+Ao executar o programa de instalação, você receberá uma mensagem como a que está abaixo: 
+
+<center>
+<img src='/schifers/images/art01/fig01.gif' border='0'>
+</center>
+
+Essa mensagem é um aviso do instalador dizendo que não é recomendável instalar o Dev-C++ por cima de uma outra instalação do mesmo software. Portanto, se você já tinha o Dev instalado, cancele a instalação, desinstale antes a versão antiga e inicie o processo novamente. 
+
+Em seguida, aparecerá a telinha de seleção da linguagem do instalador: 
+
+<center>
+<img src='/schifers/images/art01/fig02.gif' border='0'>
+</center>
+
+Escolha a opção Português. 
+
+A tela que aparece em seguida é essa que você vê logo aqui abaixo. 
+
+<center>
+<img src='/schifers/images/art01/fig03.gif' border='0'>
+</center>
+
+Trata-se do contrato de licença do Dev-C++. Se for de seu interesse, leia o contrato e se você não tiver nada contra clique no botão Aceito. 
+
+Logo após aceitar o contrato, você verá a tela com as opções de instalação da ferramenta: 
+
+<center>
+<img src='/schifers/images/art01/fig04.gif' border='0'>
+</center>
+
+Eu recomendo instalar tudo o que estiver selecionado da forma padrão que veio, caso você queira ver o que está instalando, use um pouco do seu tempo para ler as opções e entender o que cada uma delas faz. Após selecionar o que for de seu interesse, pressione o botão seguinte para dar continuidade à instalação. 
+
+Chegou a hora de escolher o local da instalação da sua ferramenta. A tela tem que ser igual a que está mais abaixo: 
+
+<center>
+<img src='/schifers/images/art01/fig05.gif' border='0'>
+</center>
+
+Mais uma vez, eu recomendo deixar no local padrão de instalação. Dessa forma fica mais fácil encontrar o Dev-C++ quando você precisar configurar as opções dele com maior precisão. Pressione o botão Instalar. 
+
+Após selecionar o local e iniciar a instalação, a seguinte tela irá aparecer: 
+
+<center>
+<img src='/schifers/images/art01/fig06.gif' border='0'>
+</center>
+
+Essa tela indica que o processo de instalação está em andamento. Aguarde a conclusão da instalação. 
+
+Em seguida é perguntado se você quer ou não instalar a ferramenta para todos os usuários do seu computador: 
+
+<center>
+<img src='/schifers/images/art01/fig07.gif' border='0'>
+</center>
+
+Essa opção fica a seu critério. Eu costumo colocar que sim, pois eu sou o único usuário do meu computador. 
+
+Concluindo a instalação: 
+
+<center>
+<img src='/schifers/images/art01/fig08.gif' border='0'>
+</center>
+
+Essa última tela indica que o Dev-C++ foi instalado com sucesso e pergunta se você quer executá-lo após encerrar a instalação. Não mexa na seleção e aperte o botão Terminar, pois vamos dar continuidade na instalação na próxima página. 
+
+Após a instalação, siga para a próxima página para instalarmos a SDL. 
+

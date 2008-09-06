@@ -1,0 +1,14 @@
+O jogo também possuirá músicas que tornarão o jogo mais divertido:
+
+- Música do menu
+- Música da fase 1
+- Música da fase 2
+- Música da fase 3
+- Música da fase 4
+- Música da fase 5
+- Música da fase 6
+- Música do final
+- Música do game over
+- Música dos créditos
+- Música da ajuda
+

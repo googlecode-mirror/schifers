@@ -1,0 +1,28 @@
+Fases
+
+O jogo é composto de seis fases ao todo, ou seja, cinco aposentos mais o porão. A seguir, temos uma descrição do jogo em cada uma das fases.
+
+- Jardim
+
+Nessa fase, Fofia irá enfrentar um grupo de moscas normais que sobrevoam o jardim de entrada de sua casa seguindo um padrão determinado. São 3 fileiras de 5 moscas em cada. São 3 pães de proteção. As moscas descem bem devagar.
+
+- Sala de Estar
+
+Nessa fase, Fofia irá enfrentar outro grupo de moscas normais, só que aqui, elas não seguem um padrão de movimentação igual à fase anterior e elas descem um pouco mais rápidas. São 15 moscas de novo. O número de pães de proteção continua o mesmo.
+
+- Sala de TV
+
+Nessa fase, Fofia irá enfrentar um grupo de moscas varejeiras mais fortes e mais velozes que as normais. As varejeiras nessa fase, ainda seguem um padrão de movimentação. Porém, elas descem mais rápidas e a quantidade de baba é maior. São 15 moscas varejeiras. O número de pães cai para dois.
+
+- Quarto
+
+Nessa fase, Fofia irá enfrentar um grupo de moscas varejeiras que já não seguem um padrão tão formal quanto o da fase anterior. As moscas estão mais rápidas, porém continuam na quantidade de 15. O número de pães ainda é dois também.
+
+- Cozinha
+
+Na cozinha, Fofia enfrenta moscas dos dois tipos: normais e varejeiras. Elas estão em número de 20 aqui e são bem velozes, descem de maneira rápida e atiram muita baba durante a fase. O número de pães é dois.
+
+- Porão
+
+No porão, existe a enorme mosca Moscão, o chefe da gangue. O Moscão de tempos em tempos chama moscas guarda-costas e fica se lançando próximo a Fofia para tentar depositar baba super tóxica em sua roupa. Após matar o Moscão, Fofia encontra o Serginho e a animação final entra em cena. Não existe pão de proteção nessa última fase.
+

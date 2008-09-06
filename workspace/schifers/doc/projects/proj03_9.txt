@@ -1,0 +1,11 @@
+Efeitos Sonoros
+
+O jogo possuirá uma série de efeitos sonoros que tornarão as animações mais divertidas, são eles:
+
+- Efeito de tiro de spray
+- Efeito de tiro de baba
+- Efeito da Fofia sendo atingida
+- Efeito de final de fase
+- Efeito de mudança de item do menu
+- Efeito de seleção de item do menu
+
